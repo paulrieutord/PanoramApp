@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "188378095970",
+    "firebase_url": "https://panoramapp-3a8a9.firebaseio.com",
+    "project_id": "panoramapp-3a8a9",
+    "storage_bucket": "panoramapp-3a8a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188378095970:android:d95e1896b01d1dbe",
+        "android_client_info": {
+          "package_name": "com.udp.appsproject.panoramapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188378095970-2bkof3et4k8u0hjb3ph26bgh81rju7jq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEufp11X80h1QWnbsjbr5vsSN_ZJfY4Js"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
