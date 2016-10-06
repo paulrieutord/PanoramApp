@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.udp.appsproject.panoramapp.R;
@@ -35,7 +36,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
     @Override
     public DashboardHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.dashboard_item, parent, false);
+        View view = inflater.inflate(R.layout.dashboard_cardview, parent, false);
         return new DashboardHolder(view);
     }
 
@@ -44,11 +45,11 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         DashboardItem item = listData.get(position);
         holder.title.setText(item.getTitle());
         holder.subTitle.setText(item.getSubTitle());
-        if (item.isFavourite()){
+        /*if (item.isFavourite()){
             holder.favouriteIcon.setImageResource(R.drawable.ic_star_black_24dp);
         } else {
             holder.favouriteIcon.setImageResource(R.drawable.ic_star_border_black_24dp);
-        }
+        }*/
     }
 
     public void setListData(ArrayList<DashboardItem> exerciseList) {
@@ -66,9 +67,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         private ImageView icon;
         private TextView title;
         private TextView subTitle;
-        private ImageView favouriteIcon;
+        //private ImageView favouriteIcon;
 
         private View container;
+        private Button load;
 
         public DashboardHolder(View itemView) {
             super(itemView);
@@ -76,18 +78,20 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             icon = (ImageView) itemView.findViewById(R.id.icon_dashboard_item);
             title = (TextView) itemView.findViewById(R.id.title_dashboard_item);
             subTitle = (TextView) itemView.findViewById(R.id.subtitle_dashboard_item);
-            favouriteIcon = (ImageView) itemView.findViewById(R.id.favourite_icon);
-            favouriteIcon.setOnClickListener(this);
+            //favouriteIcon = (ImageView) itemView.findViewById(R.id.favourite_icon);
+            //favouriteIcon.setOnClickListener(this);
             container = itemView.findViewById(R.id.content_dashboard_item);
-            container.setOnClickListener(this);
+            //container.setOnClickListener(this);
+            load = (Button) itemView.findViewById(R.id.btn_card_load);
+            load.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == R.id.content_dashboard_item) {
+            if (v.getId() == R.id.btn_card_load) {
                 itemClickCallback.onItemClick(getAdapterPosition());
             } else {
-                itemClickCallback.onSecondaryIconClick(getAdapterPosition());
+                //itemClickCallback.onSecondaryIconClick(getAdapterPosition());
             }
         }
     }
