@@ -9,13 +9,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.udp.appsproject.panoramapp.R;
 import com.udp.appsproject.panoramapp.model.DashboardItem;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.DashboardHolder> {
 
     private List<DashboardItem> listData;
     private LayoutInflater inflater;
+
+    private ItemClickCallback itemClickCallback;
+
+    public interface ItemClickCallback {
+        void onItemClick(int p);
+        void onSecondaryIconClick(int p);
+    }
+
+    public void setItemClickCallback(final ItemClickCallback itemClickCallback) {
+        this.itemClickCallback = itemClickCallback;
+    }
 
     public DashboardAdapter (List<DashboardItem> listData, Context c) {
         this.inflater = LayoutInflater.from(c);
@@ -32,7 +43,17 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
     public void onBindViewHolder(DashboardHolder holder, int position) {
         DashboardItem item = listData.get(position);
         holder.title.setText(item.getTitle());
-        holder.icon.setImageResource(item.getImageResId());
+        holder.subTitle.setText(item.getSubTitle());
+        if (item.isFavourite()){
+            holder.favouriteIcon.setImageResource(R.drawable.ic_star_black_24dp);
+        } else {
+            holder.favouriteIcon.setImageResource(R.drawable.ic_star_border_black_24dp);
+        }
+    }
+
+    public void setListData(ArrayList<DashboardItem> exerciseList) {
+        this.listData.clear();
+        this.listData.addAll(exerciseList);
     }
 
     @Override
@@ -40,18 +61,34 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         return listData.size();
     }
 
-    class DashboardHolder extends RecyclerView.ViewHolder {
+    class DashboardHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private TextView title;
         private ImageView icon;
+        private TextView title;
+        private TextView subTitle;
+        private ImageView favouriteIcon;
+
         private View container;
 
         public DashboardHolder(View itemView) {
             super(itemView);
 
-            title = (TextView) itemView.findViewById(R.id.text_dashboard_item);
             icon = (ImageView) itemView.findViewById(R.id.icon_dashboard_item);
+            title = (TextView) itemView.findViewById(R.id.title_dashboard_item);
+            subTitle = (TextView) itemView.findViewById(R.id.subtitle_dashboard_item);
+            favouriteIcon = (ImageView) itemView.findViewById(R.id.favourite_icon);
+            favouriteIcon.setOnClickListener(this);
             container = itemView.findViewById(R.id.content_dashboard_item);
+            container.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == R.id.content_dashboard_item) {
+                itemClickCallback.onItemClick(getAdapterPosition());
+            } else {
+                itemClickCallback.onSecondaryIconClick(getAdapterPosition());
+            }
         }
     }
 }
