@@ -1,6 +1,5 @@
 package com.udp.appsproject.panoramapp.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.udp.appsproject.panoramapp.R;
 import com.udp.appsproject.panoramapp.model.DashboardItem;
+import com.udp.appsproject.panoramapp.ui.fm_dashboard;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +30,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         this.itemClickCallback = itemClickCallback;
     }
 
-    public DashboardAdapter (List<DashboardItem> listData, Context c) {
-        this.inflater = LayoutInflater.from(c);
+    public DashboardAdapter (List<DashboardItem> listData, fm_dashboard c) {
+        this.inflater = LayoutInflater.from(c.getContext());
         this.listData = listData;
     }
 
