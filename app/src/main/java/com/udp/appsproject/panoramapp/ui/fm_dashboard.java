@@ -26,7 +26,7 @@ public class fm_dashboard extends Fragment implements DashboardAdapter.ItemClick
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fm_dashboard, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_fm_dashboard, container, false);
 
         listData = (ArrayList) DashboardData.getListData();
 
