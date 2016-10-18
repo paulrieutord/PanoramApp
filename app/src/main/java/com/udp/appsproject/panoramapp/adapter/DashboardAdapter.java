@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.udp.appsproject.panoramapp.R;
@@ -23,7 +22,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
     public interface ItemClickCallback {
         void onItemClick(int p);
-        void onSecondaryIconClick(int p);
     }
 
     public void setItemClickCallback(final ItemClickCallback itemClickCallback) {
@@ -44,13 +42,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
     @Override
     public void onBindViewHolder(DashboardHolder holder, int position) {
         DashboardItem item = listData.get(position);
-        holder.title.setText(item.getTitle());
-        holder.subTitle.setText(item.getSubTitle());
-        /*if (item.isFavourite()){
-            holder.favouriteIcon.setImageResource(R.drawable.ic_star_black_24dp);
-        } else {
-            holder.favouriteIcon.setImageResource(R.drawable.ic_star_border_black_24dp);
-        }*/
+        holder.name.setText(item.getName());
+        holder.action.setText(item.getAction());
+        holder.timeAction.setText(item.getTimeAction());
+        holder.titleEvent.setText(item.getTitleEvent());
+        holder.dateEvent.setText(item.getDateEvent());
+        holder.place.setText(item.getPlace());
     }
 
     public void setListData(ArrayList<DashboardItem> exerciseList) {
@@ -65,34 +62,34 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
     class DashboardHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private ImageView icon;
-        private TextView title;
-        private TextView subTitle;
-        //private ImageView favouriteIcon;
-
-        private View container;
-        private Button load;
+        private ImageView avatar;
+        private ImageView photo;
+        private TextView name;
+        private TextView action;
+        private TextView timeAction;
+        private TextView titleEvent;
+        private TextView dateEvent;
+        private TextView place;
 
         public DashboardHolder(View itemView) {
             super(itemView);
 
-            icon = (ImageView) itemView.findViewById(R.id.icon_dashboard_item);
-            title = (TextView) itemView.findViewById(R.id.title_dashboard_item);
-            subTitle = (TextView) itemView.findViewById(R.id.subtitle_dashboard_item);
-            //favouriteIcon = (ImageView) itemView.findViewById(R.id.favourite_icon);
-            //favouriteIcon.setOnClickListener(this);
-            container = itemView.findViewById(R.id.content_dashboard_item);
-            //container.setOnClickListener(this);
-            load = (Button) itemView.findViewById(R.id.btn_card_load);
-            load.setOnClickListener(this);
+            avatar = (ImageView) itemView.findViewById(R.id.avatar_dashboard_item);
+            photo = (ImageView) itemView.findViewById(R.id.photo_dashboard_item);
+            name = (TextView) itemView.findViewById(R.id.name_dashboard_item);
+            action = (TextView) itemView.findViewById(R.id.action_dashboard_item);
+            timeAction = (TextView) itemView.findViewById(R.id.timeAction_dashboard_item);
+            titleEvent = (TextView) itemView.findViewById(R.id.titleEvent_dashboard_item);
+            dateEvent = (TextView) itemView.findViewById(R.id.dateEvent_dashboard_item);
+            place = (TextView) itemView.findViewById(R.id.place_dashboard_item);
+
+            photo.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == R.id.btn_card_load) {
+            if (v.getId() == R.id.photo_dashboard_item) {
                 itemClickCallback.onItemClick(getAdapterPosition());
-            } else {
-                //itemClickCallback.onSecondaryIconClick(getAdapterPosition());
             }
         }
     }

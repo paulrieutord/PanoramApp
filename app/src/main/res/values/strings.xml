@@ -9,4 +9,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    <!-- ITEMS NAVDRAWER -->
+    <string name="dashboard">Dashboard</string>
+    <string name="events">Eventos</string>
+    <string name="calendar">Mi calendario</string>
+    <string name="messages">Mensajes</string>
+    <string name="friends">Amigos</string>
+    <string name="preferences">Preferencias</string>
+    <string name="terms">Términos y condiciones</string>
 </resources>

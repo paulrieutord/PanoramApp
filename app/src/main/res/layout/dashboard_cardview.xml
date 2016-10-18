@@ -7,11 +7,13 @@
     android:padding="8dp">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_item"
+        android:id="@+id/card_dashboard_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        card_view:cardCornerRadius="4dp">
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="2dp"
+        card_view:cardUseCompatPadding="true">
 
         <RelativeLayout
             android:id="@+id/cont_card_content"
@@ -20,46 +22,84 @@
             android:background="#FFFFFF">
 
             <ImageView
-                android:id="@+id/icon_dashboard_item"
-                android:layout_width="match_parent"
-                android:layout_height="156dp"
-                android:background="@color/colorPrimary"
-                android:padding="36dp"
-                android:src="@drawable/ic_tonality_black_36dp"
-                android:tint="#FFFFFF"
-
+                android:id="@+id/avatar_dashboard_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:layout_alignParentStart="true"
+                android:src="@android:drawable/sym_def_app_icon"
                 />
 
             <TextView
-                android:id="@+id/subtitle_dashboard_item"
-                android:layout_width="match_parent"
+                android:id="@+id/name_dashboard_item"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/title_dashboard_item"
-                android:paddingLeft="16dp"
-                android:textColor="@android:color/white"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:paddingTop="25dp"
+                android:layout_toEndOf="@id/avatar_dashboard_item"
+                android:text="Test Tito"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                />
 
             <TextView
-                android:id="@+id/title_dashboard_item"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/icon_dashboard_item"
-                android:paddingLeft="16dp" />
-
-
-            <Button
-                android:id="@+id/btn_card_load"
+                android:id="@+id/action_dashboard_item"
                 android:layout_width="wrap_content"
-                android:layout_height="56dp"
-                android:layout_below="@+id/title_dashboard_item"
-                android:background="@android:color/transparent"
-                android:textColor="@color/colorAccent"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="LOAD" />
+                android:layout_height="wrap_content"
+                android:paddingBottom="15dp"
+                android:layout_toEndOf="@id/avatar_dashboard_item"
+                android:layout_below="@+id/name_dashboard_item"
+                android:textSize="15sp"
+                android:text="Asistirá"
+                />
+
+            <TextView
+                android:id="@+id/timeAction_dashboard_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="25dp"
+                android:paddingEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:text="hh:mm"
+                />
+
+            <ImageView
+                android:id="@+id/photo_dashboard_item"
+                android:layout_width="match_parent"
+                android:layout_height="156dp"
+                android:background="@color/colorPrimary"
+                android:layout_below="@+id/avatar_dashboard_item"
+                android:padding="36dp"
+                android:src="@android:drawable/gallery_thumb"
+                android:tint="#FFFFFF"
+                />
+
+            <TextView
+                android:id="@+id/place_dashboard_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_below="@id/photo_dashboard_item"
+                android:text="Lugar, Ciudad, País"/>
+
+            <TextView
+                android:id="@+id/dateEvent_dashboard_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingBottom="16dp"
+                android:layout_above="@id/place_dashboard_item"
+                android:textColor="@android:color/white"
+                android:text="xx de xx del xxxx"/>
+
+            <TextView
+                android:id="@+id/titleEvent_dashboard_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:layout_above="@id/dateEvent_dashboard_item"
+                android:text="Titulo Evento"/>
 
         </RelativeLayout>
 

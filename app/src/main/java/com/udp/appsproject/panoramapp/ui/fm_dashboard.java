@@ -47,24 +47,10 @@ public class fm_dashboard extends Fragment implements DashboardAdapter.ItemClick
         Intent i = new Intent(getActivity(), event_detail.class);
 
         Bundle extras = new Bundle();
-        extras.putString(EXTRA_QUOTE, item.getTitle());
-        extras.putString(EXTRA_ATTR, item.getSubTitle());
+        extras.putString(EXTRA_QUOTE, item.getTitleEvent());
+        extras.putString(EXTRA_ATTR, item.getPlace());
         i.putExtra(BUNDLE_EXTRAS, extras);
 
         startActivity(i);
-    }
-
-    @Override
-    public void onSecondaryIconClick(int p) {
-        DashboardItem item = (DashboardItem) listData.get(p);
-
-        if (item.isFavourite()){
-            item.setFavourite(false);
-        } else {
-            item.setFavourite(true);
-        }
-
-        adapter_dashboard.setListData(listData);
-        adapter_dashboard.notifyDataSetChanged();
     }
 }

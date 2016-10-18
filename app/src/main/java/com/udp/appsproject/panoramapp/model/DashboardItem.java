@@ -1,40 +1,77 @@
 package com.udp.appsproject.panoramapp.model;
 
 public class DashboardItem {
-    private String title;
-    private String subTitle;
-    private int imageResId;
-    private boolean favourite = false;
+    private int avatar;
+    private String name;
+    private String action;
+    private String timeAction;
+    private String titleEvent;
+    private String dateEvent;
+    private String place;
+    // imageResId
+    private int photo;
 
-    public String getTitle() {
-        return title;
+    public int getAvatar() {
+        return avatar;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
     }
 
-    public int getImageResId() {
-        return imageResId;
+    public String getName() {
+        return name;
     }
 
-    public void setImageResId(int imageResId) {
-        this.imageResId = imageResId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getSubTitle() {
-        return subTitle;
+    public String getTimeAction() {
+        return timeAction;
     }
 
-    public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
+    public void setTimeAction(String timeAction) {
+        this.timeAction = timeAction;
     }
 
-    public boolean isFavourite() {
-        return favourite;
+    public int getPhoto() {
+        return photo;
     }
 
-    public void setFavourite(boolean favourite) {
-        this.favourite = favourite;
+    public void setPhoto(int photo) {
+        this.photo = photo;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getDateEvent() {
+        return dateEvent;
+    }
+
+    public void setDateEvent(String dateEvent) {
+        this.dateEvent = dateEvent;
+    }
+
+    public String getTitleEvent() {
+        return titleEvent;
+    }
+
+    public void setTitleEvent(String titleEvent) {
+        this.titleEvent = titleEvent;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
     }
 }
