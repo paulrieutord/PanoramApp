@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_new_event"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.udp.appsproject.panoramapp.ui.NewEvent">
+
+    <TextView
+        android:id="@+id/new_titleEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp"
+        android:paddingStart="16dp"
+        android:paddingBottom="30dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Título"/>
+
+    <EditText
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/new_titleEvent"
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/new_sendTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/new_titleEvent"
+        android:paddingTop="40dp"
+        android:paddingStart="16dp"
+        android:paddingBottom="30dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Enviar a"/>
+
+    <EditText
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/new_sendTo"
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/new_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/new_sendTo"
+        android:paddingTop="40dp"
+        android:paddingStart="16dp"
+        android:paddingBottom="30dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Descripción"/>
+
+    <EditText
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/new_description"
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/new_dateEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/new_description"
+        android:paddingTop="40dp"
+        android:paddingStart="16dp"
+        android:paddingBottom="30dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Fecha"/>
+
+    <EditText
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/new_dateEvent"
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/new_placeEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/new_dateEvent"
+        android:paddingTop="40dp"
+        android:paddingStart="16dp"
+        android:paddingBottom="30dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Dirección"/>
+
+    <EditText
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/new_placeEvent"
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp"/>
+
+</RelativeLayout>
