@@ -46,6 +46,10 @@ public class main extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (savedInstanceState == null) {
+            navigationView.getMenu().performIdentifierAction(R.id.nav_timeline, 0);
+        }
     }
 
     @Override
@@ -78,27 +82,29 @@ public class main extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         Fragment fragment;
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_timeline) {
             fragment = new fm_dashboard();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_main, fragment);
             ft.commit();
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_events) {
             fragment = new fm_events();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_main, fragment);
             ft.commit();
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_calendar) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_messages) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_friends) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_preferences) {
+
+        } else if (id == R.id.nav_terms) {
 
         }
 

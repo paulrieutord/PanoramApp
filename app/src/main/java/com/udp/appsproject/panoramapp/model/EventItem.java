@@ -1,6 +1,6 @@
 package com.udp.appsproject.panoramapp.model;
 
-public class DashboardItem {
+public class EventItem {
     private int avatar;
     private String name;
     private String action;

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.udp.appsproject.panoramapp.R;
-import com.udp.appsproject.panoramapp.model.DashboardItem;
+import com.udp.appsproject.panoramapp.model.EventItem;
 import com.udp.appsproject.panoramapp.ui.fm_dashboard;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.DashboardHolder> {
 
-    private List<DashboardItem> listData;
+    private List<EventItem> listData;
     private LayoutInflater inflater;
 
     private ItemClickCallback itemClickCallback;
@@ -28,7 +28,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         this.itemClickCallback = itemClickCallback;
     }
 
-    public DashboardAdapter (List<DashboardItem> listData, fm_dashboard c) {
+    public DashboardAdapter (List<EventItem> listData, fm_dashboard c) {
         this.inflater = LayoutInflater.from(c.getContext());
         this.listData = listData;
     }
@@ -41,7 +41,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
     @Override
     public void onBindViewHolder(DashboardHolder holder, int position) {
-        DashboardItem item = listData.get(position);
+        EventItem item = listData.get(position);
         holder.name.setText(item.getName());
         holder.action.setText(item.getAction());
         holder.timeAction.setText(item.getTimeAction());
@@ -50,7 +50,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         holder.place.setText(item.getPlace());
     }
 
-    public void setListData(ArrayList<DashboardItem> exerciseList) {
+    public void setListData(ArrayList<EventItem> exerciseList) {
         this.listData.clear();
         this.listData.addAll(exerciseList);
     }

@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.udp.appsproject.panoramapp.R;
 import com.udp.appsproject.panoramapp.adapter.DashboardAdapter;
-import com.udp.appsproject.panoramapp.model.DashboardData;
-import com.udp.appsproject.panoramapp.model.DashboardItem;
+import com.udp.appsproject.panoramapp.model.EventsData;
+import com.udp.appsproject.panoramapp.model.EventItem;
 import java.util.ArrayList;
 
 public class fm_dashboard extends Fragment implements DashboardAdapter.ItemClickCallback{
@@ -28,12 +28,12 @@ public class fm_dashboard extends Fragment implements DashboardAdapter.ItemClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_fm_dashboard, container, false);
 
-        listData = (ArrayList) DashboardData.getListData();
+        listData = (ArrayList) EventsData.getListData();
 
-        recView_dashboard = (RecyclerView) rootView.findViewById(R.id.recView_dashboard);
+        recView_dashboard = (RecyclerView) rootView.findViewById(R.id.recView_events);
         recView_dashboard.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter_dashboard = new DashboardAdapter(DashboardData.getListData(), this);
+        adapter_dashboard = new DashboardAdapter(EventsData.getListData(), this);
         recView_dashboard.setAdapter(adapter_dashboard);
         adapter_dashboard.setItemClickCallback(this);
 
@@ -42,7 +42,7 @@ public class fm_dashboard extends Fragment implements DashboardAdapter.ItemClick
 
     @Override
     public void onItemClick(int p) {
-        DashboardItem item = (DashboardItem) listData.get(p);
+        EventItem item = (EventItem) listData.get(p);
 
         Intent i = new Intent(getActivity(), event_detail.class);
 

@@ -4,7 +4,7 @@ import com.udp.appsproject.panoramapp.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DashboardData {
+public class EventsData {
     private static final String[] names = {
             "Pedro Ramirez",
             "Juan Carrasco",
@@ -58,12 +58,12 @@ public class DashboardData {
             "Hotel W, Santiago, Chile"
     };
 
-    public static List<DashboardItem> getListData() {
-        List<DashboardItem> data = new ArrayList<>();
+    public static List<EventItem> getListData() {
+        List<EventItem> data = new ArrayList<>();
 
         for (int x = 0; x < 4; x++) {
             for (int i = 0; i < names.length; i++) {
-                DashboardItem item = new DashboardItem();
+                EventItem item = new EventItem();
                 item.setAvatar(avatar);
                 item.setName(names[i]);
                 item.setAction(action[i]);
