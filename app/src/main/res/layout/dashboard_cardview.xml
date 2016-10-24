@@ -66,7 +66,7 @@
                 android:id="@+id/photo_dashboard_item"
                 android:layout_width="match_parent"
                 android:layout_height="156dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/backgroundPhoto"
                 android:layout_below="@+id/avatar_dashboard_item"
                 android:padding="50dp"
                 android:src="@drawable/ic_menu_events"

@@ -1,5 +1,6 @@
 package com.udp.appsproject.panoramapp.ui;
 
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -10,10 +11,14 @@ public class event_detail extends AppCompatActivity {
     private static final String EXTRA_QUOTE = "EXTRA_QUOTE";
     private static final String EXTRA_ATTR = "EXTRA_ATTR";
 
+    private CollapsingToolbarLayout collapsingToolbarLayout = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_detail_event);
 
         Bundle extras = getIntent().getBundleExtra(BUNDLE_EXTRAS);
 

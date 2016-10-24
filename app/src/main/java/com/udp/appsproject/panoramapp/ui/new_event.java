@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 import com.udp.appsproject.panoramapp.R;
 
-public class NewEvent extends AppCompatActivity {
+public class new_event extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
