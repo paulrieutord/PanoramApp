@@ -31,9 +31,9 @@
                 android:icon="@drawable/ic_menu_manage"
                 android:title="@string/preferences" />
             <item
-                android:id="@+id/nav_terms"
+                android:id="@+id/nav_about"
                 android:icon="@drawable/ic_menu_terms"
-                android:title="@string/terms" />
+                android:title="@string/about" />
         </menu>
     </item>
 

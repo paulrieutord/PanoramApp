@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -73,9 +75,8 @@ public class main extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (savedInstanceState == null) {
-            navigationView.getMenu().performIdentifierAction(R.id.nav_timeline, 0);
-        }
+        navigationView.getMenu().getItem(0).setChecked(true);
+        onNavigationItemSelected(navigationView.getMenu().getItem(0));
     }
 
     @Override
@@ -123,15 +124,18 @@ public class main extends AppCompatActivity
             ft.replace(R.id.content_main, fragment);
             ft.commit();
         } else if (id == R.id.nav_calendar) {
-
+            Toast.makeText(this, "No disponible.", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_messages) {
-
+            Toast.makeText(this, "No disponible.", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_friends) {
-
+            Toast.makeText(this, "No disponible.", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_preferences) {
-
-        } else if (id == R.id.nav_terms) {
-
+            Toast.makeText(this, "No disponible.", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_about) {
+            new AlertDialog.Builder(this)
+                    .setTitle("PanoramApp")
+                    .setMessage("Proyecto para aplicaciones móviles.")
+                    .show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
