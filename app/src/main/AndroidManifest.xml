@@ -22,12 +22,12 @@
         </activity>
         <activity
             android:name=".ui.event_detail"
-            android:label="Detalle"
+            android:label="@string/title_event_details"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".ui.new_event"
-            android:label="Ingrese evento">
+            android:label="@string/title_new_event">
         </activity>
     </application>
 

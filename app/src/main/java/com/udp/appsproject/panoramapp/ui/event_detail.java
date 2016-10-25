@@ -22,7 +22,8 @@ public class event_detail extends AppCompatActivity {
 
         Bundle extras = getIntent().getBundleExtra(BUNDLE_EXTRAS);
 
-        ((TextView)findViewById(R.id.lbl_quote_text)).setText(extras.getString(EXTRA_QUOTE));
-        ((TextView)findViewById(R.id.lbl_quote_attribution)).setText(extras.getString(EXTRA_ATTR));
+        collapsingToolbarLayout.setTitle(extras.getString(EXTRA_QUOTE));
+
+        ((TextView)findViewById(R.id.place_value)).setText(extras.getString(EXTRA_ATTR));
     }
 }
