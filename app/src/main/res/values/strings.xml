@@ -17,18 +17,21 @@
     <string name="friends">Amigos</string>
     <string name="preferences">Preferencias</string>
     <string name="about">Acerca de</string>
+    <string name="logout">Cerrar sesión</string>
 
     <string name="lorem_ipsum">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</string>
 
     <!-- LOGIN -->
-    <string name="prompt_email">Usuario/email</string>
-    <string name="prompt_password">Password (opcional)</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
     <string name="action_sign_in">Ingresar</string>
     <string name="action_sign_in_short">Ingresar</string>
     <string name="error_invalid_email">Email inválido</string>
     <string name="error_invalid_password">Contraseña demasiado corta</string>
-    <string name="error_incorrect_password">Password incorrecto</string>
+    <string name="error_user_dont_exist">Usuario no registrado</string>
+    <string name="error_user_exist">Usuario ya existe</string>
     <string name="error_field_required">Este campo es requerido</string>
     <string name="permission_rationale">"Permiso de contactos es necesario para la autocompletación del email."
     </string>
+    <string name="auth_failed">Autenticación fallida</string>
 </resources>
