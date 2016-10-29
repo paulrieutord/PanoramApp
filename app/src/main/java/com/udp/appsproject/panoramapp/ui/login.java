@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.udp.appsproject.panoramapp.R;
 
@@ -60,6 +61,7 @@ public class login extends AppCompatActivity implements LoaderCallbacks<Cursor>,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -93,14 +95,13 @@ public class login extends AppCompatActivity implements LoaderCallbacks<Cursor>,
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Log.d("LOGEADO", "onAuthStateChanged:signed_in:" + user.getUid());
+                    Log.d("SIGN_IN", "onAuthStateChanged:signed_in:" + user.getUid());
                     startActivity(new Intent(getApplicationContext(), main.class));
 
                 } else {
                     // User is signed out
-                    Log.d("DESLOGEADO", "onAuthStateChanged:signed_out");
+                    Log.d("SIGN_OUT", "onAuthStateChanged:signed_out");
                 }
-                // ...
             }
         };
     }
@@ -242,7 +243,7 @@ public class login extends AppCompatActivity implements LoaderCallbacks<Cursor>,
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Log.d("LOGEANDO", "signInWithEmail:onComplete:" + task.isSuccessful());
+                                Log.d("SIGN_IN_USER", "signInWithEmail:onComplete:" + task.isSuccessful());
 
                                 showProgress(false);
 
@@ -250,9 +251,18 @@ public class login extends AppCompatActivity implements LoaderCallbacks<Cursor>,
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
                                 if (!task.isSuccessful()) {
-                                    Log.w("ERROR DE LOGIN", "signInWithEmail:failed", task.getException());
-                                    mEmailView.setError(getString(R.string.error_user_dont_exist));
-                                    mEmailView.requestFocus();
+                                    String error = ((FirebaseAuthException)task.getException()).getErrorCode();
+                                    if (error.equals("ERROR_USER_NOT_FOUND")) {
+                                        mEmailView.setError(getString(R.string.error_user_dont_exist));
+                                        mEmailView.requestFocus();
+                                    } else if (error.equals("ERROR_WRONG_PASSWORD")) {
+                                        mPasswordView.setError(getString(R.string.error_wrong_password));
+                                        mPasswordView.requestFocus();
+                                    } else if (error.equals("ERROR_USER_DISABLED")) {
+                                        mEmailView.setError(getString(R.string.error_user_disable));
+                                        mEmailView.requestFocus();
+                                    }
+                                    Log.d("FIREBASE_AUTH_ERROR", ((FirebaseAuthException)task.getException()).getErrorCode());
                                 }
                             }
                         });
@@ -261,7 +271,7 @@ public class login extends AppCompatActivity implements LoaderCallbacks<Cursor>,
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Log.d("CREANDO USER", "createUserWithEmail:onComplete:" + task.isSuccessful());
+                                Log.d("CREATE_USER", "createUserWithEmail:onComplete:" + task.isSuccessful());
 
                                 showProgress(false);
 
@@ -269,8 +279,12 @@ public class login extends AppCompatActivity implements LoaderCallbacks<Cursor>,
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
                                 if (!task.isSuccessful()) {
-                                    mEmailView.setError(getString(R.string.error_user_exist));
-                                    mEmailView.requestFocus();
+                                    String error = ((FirebaseAuthException)task.getException()).getErrorCode();
+                                    if (error.equals("ERROR_EMAIL_ALREADY_IN_USE")) {
+                                        mEmailView.setError(getString(R.string.error_user_dont_exist));
+                                        mEmailView.requestFocus();
+                                    }
+                                    Log.d("FIREBASE_AUTH_ERROR", ((FirebaseAuthException)task.getException()).getErrorCode());
                                 }
                             }
                         });
