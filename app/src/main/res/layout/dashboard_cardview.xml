@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        card_view:cardCornerRadius="4dp"
+        card_view:cardCornerRadius="2dp"
         card_view:cardElevation="2dp"
         card_view:cardUseCompatPadding="true">
 
@@ -19,7 +19,7 @@
             android:id="@+id/cont_card_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF">
+            android:background="@color/white">
 
             <ImageView
                 android:id="@+id/avatar_dashboard_item"
@@ -27,19 +27,18 @@
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:layout_alignParentStart="true"
-                android:src="@android:drawable/sym_def_app_icon"
-                />
+                android:src="@android:drawable/sym_def_app_icon" />
 
             <TextView
                 android:id="@+id/name_dashboard_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="25dp"
                 android:layout_toEndOf="@id/avatar_dashboard_item"
-                android:text="Test Tito"
+                android:paddingTop="25dp"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                />
+                android:text="Test Tito"
+                android:maxLines="1" />
 
             <TextView
                 android:id="@+id/action_dashboard_item"
@@ -50,7 +49,7 @@
                 android:layout_below="@+id/name_dashboard_item"
                 android:textSize="15sp"
                 android:text="Asistirá"
-                />
+                android:maxLines="1" />
 
             <TextView
                 android:id="@+id/timeAction_dashboard_item"
@@ -58,48 +57,49 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="25dp"
                 android:paddingEnd="10dp"
+                android:paddingStart="10dp"
                 android:layout_alignParentEnd="true"
-                android:text="hh:mm"
-                />
+                android:text="hh:mm" />
 
             <ImageView
                 android:id="@+id/photo_dashboard_item"
                 android:layout_width="match_parent"
                 android:layout_height="156dp"
-                android:background="@color/backgroundPhoto"
                 android:layout_below="@+id/avatar_dashboard_item"
                 android:padding="50dp"
+                android:background="@color/backgroundPhoto"
                 android:src="@drawable/ic_menu_events"
-                android:tint="#FFFFFF"
-                />
+                android:tint="@color/white" />
 
             <TextView
                 android:id="@+id/place_dashboard_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
                 android:layout_below="@id/photo_dashboard_item"
-                android:text="Lugar, Ciudad, País"/>
+                android:padding="16dp"
+                android:text="Lugar, Ciudad, País" />
 
             <TextView
                 android:id="@+id/dateEvent_dashboard_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingBottom="16dp"
                 android:layout_above="@id/place_dashboard_item"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="16dp"
                 android:textColor="@android:color/white"
-                android:text="xx de xx del xxxx"/>
+                android:text="xx de xx del xxxx" />
 
             <TextView
                 android:id="@+id/titleEvent_dashboard_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@id/dateEvent_dashboard_item"
                 android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:textColor="@android:color/white"
                 android:textSize="22sp"
-                android:layout_above="@id/dateEvent_dashboard_item"
-                android:text="Titulo Evento"/>
+                android:text="Titulo Evento" />
 
         </RelativeLayout>
 

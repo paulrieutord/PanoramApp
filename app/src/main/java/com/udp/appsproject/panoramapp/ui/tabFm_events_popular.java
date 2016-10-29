@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.udp.appsproject.panoramapp.R;
-import com.udp.appsproject.panoramapp.adapter.DashboardAdapter;
 import com.udp.appsproject.panoramapp.adapter.EventsAdapter;
 import com.udp.appsproject.panoramapp.model.EventsData;
 import com.udp.appsproject.panoramapp.model.EventItem;

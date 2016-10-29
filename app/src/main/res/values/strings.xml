@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">PanoramApp</string>
 
+    <!-- TITLES -->
     <string name="title_activity_main">PanoramApp</string>
     <string name="title_event_details">Nombre evento</string>
     <string name="title_new_event">Nuevo evento</string>
@@ -19,6 +20,10 @@
     <string name="about">Acerca de</string>
     <string name="logout">Cerrar sesión</string>
 
+    <!-- EVENT DETAIL -->
+    <string name="place_event_detail">LUGAR</string>
+    <string name="value_ticket_event_detail">VALOR TICKETS</string>
+    <string name="description_event_detail">DESCRIPCIÓN</string>
     <string name="lorem_ipsum">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</string>
 
     <!-- LOGIN -->
@@ -36,4 +41,6 @@
     </string>
     <string name="auth_failed">Autenticación fallida</string>
     <string name="error_user_disable">Usuario actualmente deshabilitado</string>
+    <string name="register_user">Registrar.</string>
+    <string name="forgot_password">Olvidaste tu contraseña?</string>
 </resources>

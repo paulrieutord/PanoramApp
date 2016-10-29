@@ -30,7 +30,7 @@ public class EventsData {
             "22:30 hrs."
     };
 
-    private static final int photo = R.drawable.ic_tonality_black_36dp;
+    private static final int photo = R.drawable.ic_menu_events;
 
     private static final int avatar = android.R.drawable.sym_def_app_icon;
 

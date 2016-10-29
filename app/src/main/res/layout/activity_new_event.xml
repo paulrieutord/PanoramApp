@@ -23,14 +23,14 @@
             android:paddingStart="16dp"
             android:paddingBottom="30dp"
             android:textColor="@color/colorPrimaryDark"
-            android:text="Título"/>
+            android:text="Título" />
 
         <EditText
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/new_titleEvent"
             android:layout_alignParentEnd="true"
-            android:textSize="20dp"/>
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/new_sendTo"
@@ -41,14 +41,14 @@
             android:paddingStart="16dp"
             android:paddingBottom="30dp"
             android:textColor="@color/colorPrimaryDark"
-            android:text="Enviar a"/>
+            android:text="Enviar a" />
 
         <EditText
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/new_sendTo"
             android:layout_alignParentEnd="true"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/new_description"
@@ -59,14 +59,14 @@
             android:paddingStart="16dp"
             android:paddingBottom="30dp"
             android:textColor="@color/colorPrimaryDark"
-            android:text="Descripción"/>
+            android:text="Descripción" />
 
         <EditText
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/new_description"
             android:layout_alignParentEnd="true"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/new_dateEvent"
@@ -77,14 +77,14 @@
             android:paddingStart="16dp"
             android:paddingBottom="30dp"
             android:textColor="@color/colorPrimaryDark"
-            android:text="Fecha"/>
+            android:text="Fecha" />
 
         <EditText
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/new_dateEvent"
             android:layout_alignParentEnd="true"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/new_placeEvent"
@@ -95,14 +95,14 @@
             android:paddingStart="16dp"
             android:paddingBottom="30dp"
             android:textColor="@color/colorPrimaryDark"
-            android:text="Dirección"/>
+            android:text="Dirección" />
 
         <EditText
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/new_placeEvent"
             android:layout_alignParentEnd="true"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <Button
             android:layout_marginTop="20dp"
@@ -114,7 +114,7 @@
             android:layout_below="@id/new_placeEvent"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
-            android:text="Crear Evento"/>
+            android:text="Crear Evento" />
 
     </RelativeLayout>
 

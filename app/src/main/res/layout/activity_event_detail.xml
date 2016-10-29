@@ -33,7 +33,7 @@
                 android:background="@color/backgroundPhoto"
                 android:padding="150dp"
                 android:src="@drawable/ic_menu_events"
-                android:tint="#FFFFFF"
+                android:tint="@color/white"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax" />
 
@@ -41,7 +41,7 @@
                 android:id="@+id/toolbar_detail_event"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin" >
+                app:layout_collapseMode="pin">
 
             </android.support.v7.widget.Toolbar>
 
@@ -68,10 +68,10 @@
                 android:layout_marginTop="25dp"
                 android:paddingStart="75dp"
                 android:paddingEnd="75dp"
-                android:textSize="13dp"
+                android:textSize="@dimen/titles_event_detail"
                 android:textStyle="bold"
                 android:textColor="@color/text_details"
-                android:text="LUGAR"/>
+                android:text="@string/place_event_detail" />
 
             <TextView
                 android:id="@+id/place_value"
@@ -81,8 +81,8 @@
                 android:paddingTop="5dp"
                 android:paddingStart="75dp"
                 android:paddingEnd="75dp"
-                android:textSize="17dp"
-                android:text="Algun Lugar, Ciudad, Pais"/>
+                android:textSize="@dimen/values_event_detail"
+                android:text="Algun Lugar, Ciudad, Pais" />
 
             <TextView
                 android:id="@+id/ticket"
@@ -92,10 +92,10 @@
                 android:paddingTop="25dp"
                 android:paddingStart="75dp"
                 android:paddingEnd="75dp"
-                android:textSize="13dp"
+                android:textSize="@dimen/titles_event_detail"
                 android:textStyle="bold"
                 android:textColor="@color/text_details"
-                android:text="VALOR TICKET"/>
+                android:text="@string/value_ticket_event_detail" />
 
             <TextView
                 android:id="@+id/ticket_value"
@@ -105,8 +105,8 @@
                 android:paddingTop="5dp"
                 android:paddingStart="75dp"
                 android:paddingEnd="75dp"
-                android:textSize="30dp"
-                android:text="$30,000"/>
+                android:textSize="@dimen/values_event_detail"
+                android:text="$30,000" />
 
             <TextView
                 android:id="@+id/description"
@@ -116,10 +116,10 @@
                 android:paddingTop="25dp"
                 android:paddingStart="75dp"
                 android:paddingEnd="75dp"
-                android:textSize="13dp"
+                android:textSize="@dimen/titles_event_detail"
                 android:textStyle="bold"
                 android:textColor="@color/text_details"
-                android:text="DESCRIPCIÓN"/>
+                android:text="@string/description_event_detail" />
 
             <TextView
                 android:id="@+id/description_value"
@@ -129,9 +129,8 @@
                 android:paddingTop="5dp"
                 android:paddingStart="75dp"
                 android:paddingEnd="75dp"
-                android:textSize="10dp"
-                android:text="@string/lorem_ipsum"/>
-
+                android:textSize="@dimen/description_event_detail"
+                android:text="@string/lorem_ipsum" />
 
         </RelativeLayout>
 

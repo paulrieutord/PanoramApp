@@ -4,7 +4,6 @@
     android:id="@+id/content_event_item"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="@drawable/background_state_drawable"
     android:clickable="true">
 
     <ImageView
@@ -14,8 +13,7 @@
         android:layout_centerVertical="true"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:src="@drawable/ic_menu_events"
-        />
+        android:src="@drawable/ic_menu_events" />
     
     <TextView
         android:id="@+id/title_event_item"
@@ -26,11 +24,10 @@
         android:layout_toStartOf="@+id/time_event_item"
         android:ellipsize="end"
         android:fontFamily="sans-serif"
-        android:maxLines="1"
-        android:text="Algún evento"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        />
+        android:text="Algún evento"
+        android:maxLines="1" />
 
     <TextView
         android:id="@+id/place_event_item"
@@ -40,8 +37,8 @@
         android:layout_toEndOf="@+id/icon_event_item"
         android:ellipsize="end"
         android:fontFamily="sans-serif"
-        android:text="Algún lugar"
         android:textSize="14sp"
+        android:text="Algún lugar"
         android:maxLines="1" />
 
     <TextView
@@ -50,11 +47,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/title_event_item"
+        android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:ellipsize="end"
         android:fontFamily="sans-serif"
-        android:text="hh:mm hrs."
         android:textSize="14sp"
+        android:text="hh:mm hrs."
         android:maxLines="1" />
 
 </RelativeLayout>
