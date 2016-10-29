@@ -36,7 +36,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.register_event"
-            android:label="@string/title_new_event"
+            android:label="@string/title_register_event"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
