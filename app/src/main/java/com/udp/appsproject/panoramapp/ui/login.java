@@ -241,7 +241,7 @@ public class login extends AppCompatActivity implements LoaderCallbacks<Cursor>,
                                 if (!task.isSuccessful()) {
                                     String error = ((FirebaseAuthException)task.getException()).getErrorCode();
                                     if (error.equals("ERROR_USER_NOT_FOUND")) {
-                                        mEmailView.setError(getString(R.string.error_user_dont_exist));
+                                        mEmailView.setError(getString(R.string.error_user_doesnt_exist));
                                         mEmailView.requestFocus();
                                     } else if (error.equals("ERROR_WRONG_PASSWORD")) {
                                         mPasswordView.setError(getString(R.string.error_wrong_password));
@@ -269,7 +269,7 @@ public class login extends AppCompatActivity implements LoaderCallbacks<Cursor>,
                                 if (!task.isSuccessful()) {
                                     String error = ((FirebaseAuthException)task.getException()).getErrorCode();
                                     if (error.equals("ERROR_EMAIL_ALREADY_IN_USE")) {
-                                        mEmailView.setError(getString(R.string.error_user_dont_exist));
+                                        mEmailView.setError(getString(R.string.error_email_in_use));
                                         mEmailView.requestFocus();
                                     }
                                     Log.d("FIREBASE_AUTH_ERROR", ((FirebaseAuthException)task.getException()).getErrorCode());
