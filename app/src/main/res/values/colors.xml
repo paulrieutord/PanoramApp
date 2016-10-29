@@ -6,5 +6,6 @@
     <color name="white">#FFFFFF</color>
     <color name="backgroundPhoto">#0079f3</color>
     <color name="text_details">#77C3FF</color>
-    <color name="ligth_gray">#365B5B</color>
+    <color name="dark_gray">#365B5B</color>
+    <color name="light_gray">#F8FBFB</color>
 </resources>
