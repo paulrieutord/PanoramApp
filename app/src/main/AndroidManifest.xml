@@ -29,20 +29,15 @@
         <activity
             android:name=".ui.main"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.event_detail"
             android:label="@string/title_event_details"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.new_event"
-            android:label="@string/title_new_event">
-
-        </activity>
+            android:name=".ui.register_event"
+            android:label="@string/title_new_event"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

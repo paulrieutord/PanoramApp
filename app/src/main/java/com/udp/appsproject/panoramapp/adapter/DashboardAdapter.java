@@ -35,7 +35,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
     @Override
     public DashboardHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.dashboard_cardview, parent, false);
+        View view = inflater.inflate(R.layout.event_cardview_dashboard, parent, false);
         return new DashboardHolder(view);
     }
 

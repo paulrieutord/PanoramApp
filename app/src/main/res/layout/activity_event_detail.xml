@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.udp.appsproject.panoramapp.ui.event_detail"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    tools:context="com.udp.appsproject.panoramapp.ui.event_detail">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_event_detail"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_detail_event"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:collapsedTitleGravity="center"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
             app:expandedTitleGravity="center|bottom"
             app:expandedTitleMarginStart="67dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            android:fitsSystemWindows="true"
-            app:contentScrim="@color/colorPrimary">
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
                 android:id="@+id/photo_detail"
@@ -41,111 +40,24 @@
                 android:id="@+id/toolbar_detail_event"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin">
-
-            </android.support.v7.widget.Toolbar>
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
-
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/scroll_detail_event"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/place"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:paddingStart="75dp"
-                android:paddingEnd="75dp"
-                android:textSize="@dimen/titles_event_detail"
-                android:textStyle="bold"
-                android:textColor="@color/text_details"
-                android:text="@string/place_event_detail" />
-
-            <TextView
-                android:id="@+id/place_value"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/place"
-                android:paddingTop="5dp"
-                android:paddingStart="75dp"
-                android:paddingEnd="75dp"
-                android:textSize="@dimen/values_event_detail"
-                android:text="Algun Lugar, Ciudad, Pais" />
-
-            <TextView
-                android:id="@+id/ticket"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/place_value"
-                android:paddingTop="25dp"
-                android:paddingStart="75dp"
-                android:paddingEnd="75dp"
-                android:textSize="@dimen/titles_event_detail"
-                android:textStyle="bold"
-                android:textColor="@color/text_details"
-                android:text="@string/value_ticket_event_detail" />
-
-            <TextView
-                android:id="@+id/ticket_value"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/ticket"
-                android:paddingTop="5dp"
-                android:paddingStart="75dp"
-                android:paddingEnd="75dp"
-                android:textSize="@dimen/values_event_detail"
-                android:text="$30,000" />
-
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ticket_value"
-                android:paddingTop="25dp"
-                android:paddingStart="75dp"
-                android:paddingEnd="75dp"
-                android:textSize="@dimen/titles_event_detail"
-                android:textStyle="bold"
-                android:textColor="@color/text_details"
-                android:text="@string/description_event_detail" />
-
-            <TextView
-                android:id="@+id/description_value"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/description"
-                android:paddingTop="5dp"
-                android:paddingStart="75dp"
-                android:paddingEnd="75dp"
-                android:textSize="@dimen/description_event_detail"
-                android:text="@string/lorem_ipsum" />
-
-        </RelativeLayout>
-
-    </android.support.v4.widget.NestedScrollView>
+    <include layout="@layout/content_event_detail" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_detail_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|start"
         android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@+id/collapsing_toolbar_detail_event"
-        app:layout_anchorGravity="bottom|start|left"
+        android:layout_gravity="center_vertical|start"
+        app:layout_anchor="@+id/app_bar_event_detail"
+        app:layout_anchorGravity="bottom|start"
         app:backgroundTint="@color/colorAccent"
         android:tint="@android:color/white"
-        android:src="@drawable/ic_menu_add" />
+        app:srcCompat="@drawable/ic_menu_add" />
 
 </android.support.design.widget.CoordinatorLayout>
