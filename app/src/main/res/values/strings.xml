@@ -6,6 +6,7 @@
     <string name="title_event_details">Nombre evento</string>
     <string name="title_register_event">Nuevo evento</string>
     <string name="title_activity_login">Ingresar</string>
+    <string name="title_register_user">Registro de usuario</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -43,6 +44,14 @@
     <string name="error_user_doesnt_exist">Correo electrónico no registrado</string>
     <string name="register_user">Registrar.</string>
     <string name="forgot_password">Olvidaste tu contraseña?</string>
+
+    <!-- REGISTER USER -->
+    <string name="prompt_username">Nombre de usuario</string>
+    <string name="prompt_name">Nombre</string>
+    <string name="prompt_last_name">Apellido</string>
+    <string name="prompt_repeat_password">Confirme contraseña</string>
+    <string name="action_sign_up">Registrar</string>
+    <string name="error_match_password">Contraseñas no coinciden</string>
 
     <!-- ETC -->
 </resources>

@@ -27,7 +27,6 @@ import com.udp.appsproject.panoramapp.R;
 public class main extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    //Firebase
     private DatabaseReference mDatabase;
 
     @Override
@@ -38,9 +37,8 @@ public class main extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //FB
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference userName = mDatabase.child("user");
+        DatabaseReference userName = mDatabase.child("exa");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

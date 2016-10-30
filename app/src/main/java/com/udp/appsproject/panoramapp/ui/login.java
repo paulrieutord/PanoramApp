@@ -99,12 +99,12 @@ public class login extends AppCompatActivity implements LoaderCallbacks<Cursor>,
         switch (v.getId()) {
             case R.id.email_sign_in_button:
                 //0 = login
-                attemptLoginOrRegister(0);
+                attemptLogin();
                 break;
 
             case R.id.register_user:
                 //1 = register
-                attemptLoginOrRegister(1);
+                startActivity(new Intent(getApplicationContext(), register_user.class));
                 break;
 
             default:
@@ -182,7 +182,7 @@ public class login extends AppCompatActivity implements LoaderCallbacks<Cursor>,
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptLoginOrRegister(Integer mode) {
+    private void attemptLogin() {
 
         // Reset errors.
         mEmailView.setError(null);
@@ -226,57 +226,33 @@ public class login extends AppCompatActivity implements LoaderCallbacks<Cursor>,
             // perform the user login attempt.
             showProgress(true);
 
-            if (mode == 0) {
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                Log.d("SIGN_IN_USER", "signInWithEmail:onComplete:" + task.isSuccessful());
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            Log.d("SIGN_IN_USER", "signInWithEmail:onComplete:" + task.isSuccessful());
 
-                                showProgress(false);
+                            showProgress(false);
 
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                if (!task.isSuccessful()) {
-                                    String error = ((FirebaseAuthException)task.getException()).getErrorCode();
-                                    if (error.equals("ERROR_USER_NOT_FOUND")) {
-                                        mEmailView.setError(getString(R.string.error_user_doesnt_exist));
-                                        mEmailView.requestFocus();
-                                    } else if (error.equals("ERROR_WRONG_PASSWORD")) {
-                                        mPasswordView.setError(getString(R.string.error_wrong_password));
-                                        mPasswordView.requestFocus();
-                                    } else if (error.equals("ERROR_USER_DISABLED")) {
-                                        mEmailView.setError(getString(R.string.error_user_disable));
-                                        mEmailView.requestFocus();
-                                    }
-                                    Log.d("FIREBASE_AUTH_ERROR", ((FirebaseAuthException)task.getException()).getErrorCode());
+                            // If sign in fails, display a message to the user. If sign in succeeds
+                            // the auth state listener will be notified and logic to handle the
+                            // signed in user can be handled in the listener.
+                            if (!task.isSuccessful()) {
+                                String error = ((FirebaseAuthException)task.getException()).getErrorCode();
+                                if (error.equals("ERROR_USER_NOT_FOUND")) {
+                                    mEmailView.setError(getString(R.string.error_user_doesnt_exist));
+                                    mEmailView.requestFocus();
+                                } else if (error.equals("ERROR_WRONG_PASSWORD")) {
+                                    mPasswordView.setError(getString(R.string.error_wrong_password));
+                                    mPasswordView.requestFocus();
+                                } else if (error.equals("ERROR_USER_DISABLED")) {
+                                    mEmailView.setError(getString(R.string.error_user_disable));
+                                    mEmailView.requestFocus();
                                 }
+                                Log.d("FIREBASE_AUTH_ERROR", ((FirebaseAuthException)task.getException()).getErrorCode());
                             }
-                        });
-            } else if (mode == 1) {
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                Log.d("CREATE_USER", "createUserWithEmail:onComplete:" + task.isSuccessful());
-
-                                showProgress(false);
-
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                if (!task.isSuccessful()) {
-                                    String error = ((FirebaseAuthException)task.getException()).getErrorCode();
-                                    if (error.equals("ERROR_EMAIL_ALREADY_IN_USE")) {
-                                        mEmailView.setError(getString(R.string.error_email_in_use));
-                                        mEmailView.requestFocus();
-                                    }
-                                    Log.d("FIREBASE_AUTH_ERROR", ((FirebaseAuthException)task.getException()).getErrorCode());
-                                }
-                            }
-                        });
-            }
+                        }
+                    });
         }
     }
 
