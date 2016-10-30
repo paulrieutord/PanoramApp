@@ -17,12 +17,14 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.udp.appsproject.panoramapp.R;
+import com.udp.appsproject.panoramapp.model.User;
 
 public class main extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -34,11 +36,11 @@ public class main extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        String uid;
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference userName = mDatabase.child("exa");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -57,20 +59,26 @@ public class main extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         final TextView navUsername = (TextView) headerView.findViewById(R.id.NavUserName);
+        final TextView navEmailUser = (TextView) headerView.findViewById(R.id.NavEmailUser);
 
-        //FB
-        userName.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String text = dataSnapshot.getValue(String.class);
-                navUsername.setText(text);
-            }
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            uid = user.getUid();
+            mDatabase.child("users").child(uid).addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            // Get user value
+                            User userObject = dataSnapshot.getValue(User.class);
+                            navUsername.setText(userObject.getName()+" "+userObject.getLastName());
+                            navEmailUser.setText(userObject.getEmail());
+                        }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        }
 
         navigationView.setNavigationItemSelectedListener(this);
 
