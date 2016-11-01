@@ -1,10 +1,10 @@
 package com.udp.appsproject.panoramapp.model;
 
 public class User {
-    public String name;
-    public String lastName;
-    public String userName;
-    public String email;
+    private String name;
+    private String lastName;
+    private String userName;
+    private String email;
 
     public User (){
     }
