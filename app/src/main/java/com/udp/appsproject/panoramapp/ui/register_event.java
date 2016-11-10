@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -30,6 +29,7 @@ import com.udp.appsproject.panoramapp.model.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class register_event extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -44,8 +44,8 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
     int day_x, month_x, year_x, hour_x, minute_x;
     int finalDay, finalMonth, finalYear, finalHour, finalMinute;
 
-    private DatabaseReference mFirebaseDatabase;
-    private FirebaseDatabase mFirebaseInstance;
+    private DatabaseReference FBDatabase;
+    private FirebaseDatabase FBInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
         eventOk = (Button) findViewById(R.id.register_event_ok);
         eventOk.setOnClickListener(this);
 
-        mFirebaseInstance = FirebaseDatabase.getInstance();
+        FBInstance = FirebaseDatabase.getInstance();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
                 year_x = newCalendar.get(Calendar.YEAR);
 
                 DatePickerDialog DPDialog = new DatePickerDialog(register_event.this, register_event.this, year_x, month_x, day_x);
-                DPDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                DPDialog.setTitle("");
                 DPDialog.show();
                 break;
             case R.id.register_event_time:
@@ -90,7 +90,6 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
                 minute_x = newCalendar.get(Calendar.MINUTE);
 
                 TimePickerDialog TPDialog = new TimePickerDialog(register_event.this, register_event.this, hour_x, minute_x, true);
-                //TPDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 TPDialog.setTitle("");
                 TPDialog.show();
                 break;
@@ -107,14 +106,26 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
         finalDay = dayOfMonth;
         finalMonth = month + 1;
         finalYear = year;
-        eventDate.setText(finalDay + "/" + finalMonth + "/" + finalYear);
+
+        long stampView = componentTimeToTimestamp(finalYear, finalMonth, finalDay, 0, 0);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyy", Locale.US);
+        String s = sdf.format(stampView);
+
+        eventDate.setText(s);
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         finalHour = hourOfDay;
         finalMinute = minute;
-        eventTime.setText(String.format(Locale.US, "%02d", finalHour) + ":" + String.format(Locale.US, "%02d", finalMinute));
+
+        long stampView = componentTimeToTimestamp(0, 0, 0, finalHour, finalMinute);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.US);
+        String s = sdf.format(stampView);
+
+        eventTime.setText(s);
     }
 
     public void createEvent() {
@@ -153,11 +164,12 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
         if (cancel) {
             focusView.requestFocus();
         } else {
-            mFirebaseDatabase = mFirebaseInstance.getReference("events");
-            String keyEvent = mFirebaseDatabase.push().getKey();
+            FBDatabase = FBInstance.getReference("events");
+            String keyEvent = FBDatabase.push().getKey();
 
             long longDateTime = componentTimeToTimestamp(finalYear, finalMonth, finalDay, finalHour, finalMinute);
-            long longCreatedAt = System.currentTimeMillis()/1000;
+            long longCreatedAt = System.currentTimeMillis();
+
             String createdBy;
 
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -169,7 +181,7 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
 
             Event eventDB = new Event(title, longDateTime, longCreatedAt, place, description, createdBy);
 
-            mFirebaseDatabase.child(keyEvent).setValue(eventDB);
+            FBDatabase.child(keyEvent).setValue(eventDB);
 
             addUserChangeListener(keyEvent);
         }
@@ -177,32 +189,22 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
 
     long componentTimeToTimestamp(int year, int month, int day, int hour, int minute) {
 
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.DAY_OF_MONTH, day);
-        c.set(Calendar.HOUR, hour);
-        c.set(Calendar.MINUTE, minute);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MILLISECOND, 0);
+        Calendar c = new GregorianCalendar(year, month - 1, day, hour, minute, 0);
 
-        return (c.getTimeInMillis() / 1000L);
+        return c.getTimeInMillis();
     }
 
     private void addUserChangeListener(String keyEvent) {
         // User data change listener
-        mFirebaseDatabase.child(keyEvent).addValueEventListener(new ValueEventListener() {
+        FBDatabase.child(keyEvent).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Event event = dataSnapshot.getValue(Event.class);
 
                 // Check for null
                 if (event == null) {
-                    Log.e("EVENT_NULL", "User data is null!");
                     return;
                 }
-
-                Log.e("EVENT_CHANGED", "Event data is changed!" + event.getTitle() + ", " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(event.getCreatedAt()));
 
                 Toast.makeText(register_event.this, "Evento creado", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), main.class));
