@@ -62,7 +62,7 @@ public class tabFm_events_popular extends Fragment {
         ) {
             @Override
             protected void populateViewHolder(EventsViewHolder viewHolder, Event model, int position) {
-                viewHolder.bindEvent(model);
+                viewHolder.bindEvent(model, adapter_events.getRef(position).getKey());
             }
         };
 

@@ -18,7 +18,7 @@ import com.udp.appsproject.panoramapp.model.Event;
 public class fm_dashboard extends Fragment {
 
     private RecyclerView recView_dashboard;
-    private FirebaseRecyclerAdapter adapter_dashboard;
+    public FirebaseRecyclerAdapter adapter_dashboard;
 
     private FirebaseDatabase FBDatabase;
     private DatabaseReference FBReference;
@@ -47,7 +47,7 @@ public class fm_dashboard extends Fragment {
         ) {
             @Override
             protected void populateViewHolder(DashboardViewHolder viewHolder, Event model, int position) {
-                viewHolder.bindEvents(model);
+                viewHolder.bindEvents(model, adapter_dashboard.getRef(position).getKey());
             }
         };
 
