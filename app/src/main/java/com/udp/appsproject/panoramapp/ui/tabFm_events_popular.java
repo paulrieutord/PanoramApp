@@ -1,6 +1,5 @@
 package com.udp.appsproject.panoramapp.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,21 +7,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.udp.appsproject.panoramapp.R;
-import com.udp.appsproject.panoramapp.adapter.EventsAdapter;
-import com.udp.appsproject.panoramapp.model.EventsData;
-import com.udp.appsproject.panoramapp.model.EventItem;
-import java.util.ArrayList;
+import com.udp.appsproject.panoramapp.adapter.EventsViewHolder;
+import com.udp.appsproject.panoramapp.model.Event;
 
-public class tabFm_events_popular extends Fragment implements EventsAdapter.ItemClickCallback{
-
-    private static final String BUNDLE_EXTRAS = "BUNDLE_EXTRAS";
-    private static final String EXTRA_QUOTE = "EXTRA_QUOTE";
-    private static final String EXTRA_ATTR = "EXTRA_ATTR";
+public class tabFm_events_popular extends Fragment {
 
     private RecyclerView recView_events;
-    private EventsAdapter adapter_events;
-    private ArrayList listData;
+    private FirebaseRecyclerAdapter adapter_events;
+
+    private FirebaseDatabase FBDatabase;
+    private DatabaseReference FBReference;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -43,29 +42,38 @@ public class tabFm_events_popular extends Fragment implements EventsAdapter.Item
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab_fm_events_popular, container, false);
 
-        listData = (ArrayList) EventsData.getListData();
-
         recView_events = (RecyclerView) rootView.findViewById(R.id.recView_events);
-        recView_events.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter_events = new EventsAdapter(EventsData.getListData(), this.getContext());
-        recView_events.setAdapter(adapter_events);
-        adapter_events.setItemClickCallback(this);
+        FBDatabase = FirebaseDatabase.getInstance();
+        FBReference = FBDatabase.getReference("events");
 
         return rootView;
     }
 
     @Override
-    public void onItemClick(int p) {
-        EventItem item = (EventItem) listData.get(p);
+    public void onStart() {
+        super.onStart();
 
-        Intent i = new Intent(getActivity(), event_detail.class);
+        adapter_events = new FirebaseRecyclerAdapter<Event, EventsViewHolder>(
+                Event.class,
+                R.layout.event_item,
+                EventsViewHolder.class,
+                FBReference
+        ) {
+            @Override
+            protected void populateViewHolder(EventsViewHolder viewHolder, Event model, int position) {
+                viewHolder.bindEvent(model);
+            }
+        };
 
-        Bundle extras = new Bundle();
-        extras.putString(EXTRA_QUOTE, item.getTitleEvent());
-        extras.putString(EXTRA_ATTR, item.getPlace());
-        i.putExtra(BUNDLE_EXTRAS, extras);
+        recView_events.setHasFixedSize(true);
+        recView_events.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recView_events.setAdapter(adapter_events);
+    }
 
-        startActivity(i);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        adapter_events.cleanup();
     }
 }

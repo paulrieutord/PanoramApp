@@ -1,6 +1,5 @@
 package com.udp.appsproject.panoramapp.ui;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,49 +7,58 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.udp.appsproject.panoramapp.R;
-import com.udp.appsproject.panoramapp.adapter.DashboardAdapter;
-import com.udp.appsproject.panoramapp.model.EventsData;
-import com.udp.appsproject.panoramapp.model.EventItem;
-import java.util.ArrayList;
+import com.udp.appsproject.panoramapp.adapter.DashboardViewHolder;
+import com.udp.appsproject.panoramapp.model.Event;
 
-public class fm_dashboard extends Fragment implements DashboardAdapter.ItemClickCallback{
-
-    private static final String BUNDLE_EXTRAS = "BUNDLE_EXTRAS";
-    private static final String EXTRA_QUOTE = "EXTRA_QUOTE";
-    private static final String EXTRA_ATTR = "EXTRA_ATTR";
+public class fm_dashboard extends Fragment {
 
     private RecyclerView recView_dashboard;
-    private DashboardAdapter adapter_dashboard;
-    private ArrayList listData;
+    private FirebaseRecyclerAdapter adapter_dashboard;
+
+    private FirebaseDatabase FBDatabase;
+    private DatabaseReference FBReference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_fm_dashboard, container, false);
 
-        listData = (ArrayList) EventsData.getListData();
-
         recView_dashboard = (RecyclerView) rootView.findViewById(R.id.recView_events);
-        recView_dashboard.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter_dashboard = new DashboardAdapter(EventsData.getListData(), this);
-        recView_dashboard.setAdapter(adapter_dashboard);
-        adapter_dashboard.setItemClickCallback(this);
+        FBDatabase = FirebaseDatabase.getInstance();
+        FBReference = FBDatabase.getReference("events");
 
         return rootView;
     }
 
     @Override
-    public void onItemClick(int p) {
-        EventItem item = (EventItem) listData.get(p);
+    public void onStart() {
+        super.onStart();
 
-        Intent i = new Intent(getActivity(), event_detail.class);
+        adapter_dashboard = new FirebaseRecyclerAdapter<Event, DashboardViewHolder>(
+                Event.class,
+                R.layout.event_cardview_dashboard,
+                DashboardViewHolder.class,
+                FBReference
+        ) {
+            @Override
+            protected void populateViewHolder(DashboardViewHolder viewHolder, Event model, int position) {
+                viewHolder.bindEvents(model);
+            }
+        };
 
-        Bundle extras = new Bundle();
-        extras.putString(EXTRA_QUOTE, item.getTitleEvent());
-        extras.putString(EXTRA_ATTR, item.getPlace());
-        i.putExtra(BUNDLE_EXTRAS, extras);
+        recView_dashboard.setHasFixedSize(true);
+        recView_dashboard.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recView_dashboard.setAdapter(adapter_dashboard);
+    }
 
-        startActivity(i);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        adapter_dashboard.cleanup();
     }
 }
