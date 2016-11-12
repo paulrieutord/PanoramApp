@@ -82,7 +82,7 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder implements View
         photo.setImageResource(R.drawable.ic_menu_events);
         photo.setOnClickListener(this);
         titleEvent.setText(events.getTitle());
-        action.setText("Asistirá");
+        action.setText("Creó el evento");
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date(System.currentTimeMillis()));
@@ -109,7 +109,8 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder implements View
             timeAction.setText(new SimpleDateFormat("dd-MM-yyy HH:mm", Locale.US).format(events.getCreatedAt()));
         }
 
-        dateEvent.setText(new SimpleDateFormat("dd-MM-yyy", Locale.US).format(events.getDateTime()));
+        String formatDate = new SimpleDateFormat("dd-MM-yyy", Locale.US).format(events.getDateTime())+" a las "+new SimpleDateFormat("HH:mm", Locale.US).format(events.getDateTime())+" hrs.";
+        dateEvent.setText(formatDate);
         place.setText(events.getPlace());
     }
 

@@ -86,7 +86,8 @@ public class EventsViewHolder extends RecyclerView.ViewHolder implements View.On
 
         titleEvent.setText(events.getTitle());
         placeEvent.setText(events.getPlace());
-        dateEvent.setText(new SimpleDateFormat("HH:mm", Locale.US).format(events.getDateTime()));
+        String formatDate = new SimpleDateFormat("HH:mm", Locale.US).format(events.getDateTime())+" hrs.";
+        dateEvent.setText(formatDate);
     }
 
     @Override
