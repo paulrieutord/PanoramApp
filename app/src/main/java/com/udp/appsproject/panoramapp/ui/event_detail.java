@@ -1,7 +1,5 @@
 package com.udp.appsproject.panoramapp.ui;
 
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -27,12 +25,14 @@ public class event_detail extends AppCompatActivity {
     TextView assistants;
     TextView place;
     TextView description;
+    Boolean childExists;
 
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
 
     Bundle extras;
 
-    private DatabaseReference mDatabase;
+    private FirebaseDatabase FBDatabase;
+    private DatabaseReference FBReference;
     private FirebaseUser user;
 
     @Override
@@ -49,30 +49,30 @@ public class event_detail extends AppCompatActivity {
 
         extras = getIntent().getBundleExtra(BUNDLE_EXTRAS);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        FBDatabase = FirebaseDatabase.getInstance();
+        FBReference = FBDatabase.getReference("events");
 
         fab = (FloatingActionButton) findViewById(R.id.fab_detail_event);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDatabase.child("events").child(extras.getString(EXTRA_KEY)).addListenerForSingleValueEvent(
+                if (childExists) {
+                    FBReference.child(extras.getString(EXTRA_KEY)).child("users").child(user.getUid()).getRef().removeValue();
+                    fab.setImageResource(R.drawable.ic_menu_add);
+                    fab.setBackgroundTintList(getResources().getColorStateList(R.color.dark_gray));
+                    childExists = false;
+                } else {
+                    FBReference.child(extras.getString(EXTRA_KEY)).child("users").child(user.getUid()).getRef().setValue(true);
+                    fab.setImageResource(R.drawable.ic_check_black_24px);
+                    fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
+                    childExists = true;
+                }
+
+                FBReference.child(extras.getString(EXTRA_KEY)).child("users").addValueEventListener(
                         new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                // Get user value
-                                Event eventObject = dataSnapshot.getValue(Event.class);
-
-                                if (dataSnapshot.child("users").hasChild(user.getUid())) {
-                                    dataSnapshot.child("users").child(user.getUid()).getRef().removeValue();
-                                    fab.setImageResource(R.drawable.ic_menu_add);
-                                    fab.setBackgroundTintList(getResources().getColorStateList(R.color.dark_gray));
-                                } else {
-                                    dataSnapshot.child("users").child(user.getUid()).getRef().setValue(true);
-                                    fab.setImageResource(R.drawable.ic_check_black_24px);
-                                    fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
-                                }
-
-                                assistants.setText(String.valueOf(dataSnapshot.child("users").getChildrenCount()));
+                                assistants.setText(String.valueOf(dataSnapshot.getChildrenCount()));
                             }
 
                             @Override
@@ -82,7 +82,7 @@ public class event_detail extends AppCompatActivity {
             }
         });
 
-        mDatabase.child("events").child(extras.getString(EXTRA_KEY)).addListenerForSingleValueEvent(
+        FBReference.child(extras.getString(EXTRA_KEY)).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -96,9 +96,11 @@ public class event_detail extends AppCompatActivity {
                         if (dataSnapshot.child("users").hasChild(user.getUid())) {
                             fab.setImageResource(R.drawable.ic_check_black_24px);
                             fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
+                            childExists = true;
                         } else {
                             fab.setImageResource(R.drawable.ic_menu_add);
                             fab.setBackgroundTintList(getResources().getColorStateList(R.color.dark_gray));
+                            childExists = false;
                         }
 
                         assistants.setText(String.valueOf(dataSnapshot.child("users").getChildrenCount()));
