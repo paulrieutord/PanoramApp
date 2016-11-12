@@ -9,9 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -28,8 +30,10 @@ import com.udp.appsproject.panoramapp.R;
 import com.udp.appsproject.panoramapp.model.Event;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 
 public class register_event extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -39,6 +43,8 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
     TextView eventTime;
     EditText eventPlace;
     EditText eventDescription;
+    Spinner categorieSpinner;
+    List<String> categoriesList;
     Button eventOk;
 
     int day_x, month_x, year_x, hour_x, minute_x;
@@ -65,7 +71,33 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
         eventOk = (Button) findViewById(R.id.register_event_ok);
         eventOk.setOnClickListener(this);
 
+        categorieSpinner = (Spinner) findViewById(R.id.spinner_categories);
+
         FBInstance = FirebaseDatabase.getInstance();
+
+        FBDatabase = FBInstance.getReference("eventCategories");
+
+        FBDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                categoriesList = new ArrayList<>();
+
+                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
+                    String categorie = areaSnapshot.getValue(String.class);
+
+                    categoriesList.add(categorie);
+                }
+
+                ArrayAdapter<String> categoriesAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, categoriesList);
+                categoriesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                categorieSpinner.setAdapter(categoriesAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
