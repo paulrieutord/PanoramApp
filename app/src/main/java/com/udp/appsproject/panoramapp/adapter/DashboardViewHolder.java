@@ -20,6 +20,9 @@ import com.udp.appsproject.panoramapp.model.User;
 import com.udp.appsproject.panoramapp.ui.event_detail;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class DashboardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -80,7 +83,32 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder implements View
         photo.setOnClickListener(this);
         titleEvent.setText(events.getTitle());
         action.setText("Asistirá");
-        timeAction.setText(new SimpleDateFormat("HH:mm", Locale.US).format(events.getCreatedAt()));
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date(System.currentTimeMillis()));
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        Date startToday = new Date(componentTimeToTimestamp(year, month, day, 0, 0));
+
+        Date now = new Date(System.currentTimeMillis());
+
+        cal.add(Calendar.DATE, -1);
+        Date startYesterday = new Date(componentTimeToTimestamp(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 0, 0));
+
+        Date createdAt = new Date(events.getCreatedAt());
+
+        if (createdAt.after(startToday) && createdAt.before(now)) {
+            String format = new SimpleDateFormat("HH:mm", Locale.US).format(events.getCreatedAt())+" hrs.";
+            timeAction.setText(format);
+        } else if (createdAt.after(startYesterday) && createdAt.before(startToday)) {
+            String format = "Ayer a las "+new SimpleDateFormat("HH:mm", Locale.US).format(events.getCreatedAt())+" hrs.";
+            timeAction.setText(format);
+        } else {
+            timeAction.setText(new SimpleDateFormat("dd-MM-yyy HH:mm", Locale.US).format(events.getCreatedAt()));
+        }
+
         dateEvent.setText(new SimpleDateFormat("dd-MM-yyy", Locale.US).format(events.getDateTime()));
         place.setText(events.getPlace());
     }
@@ -94,5 +122,12 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder implements View
         i.putExtra(BUNDLE_EXTRAS, extras);
 
         mContext.startActivity(i);
+    }
+
+    long componentTimeToTimestamp(int year, int month, int day, int hour, int minute) {
+
+        Calendar c = new GregorianCalendar(year, month - 1, day, hour, minute, 0);
+
+        return c.getTimeInMillis();
     }
 }
