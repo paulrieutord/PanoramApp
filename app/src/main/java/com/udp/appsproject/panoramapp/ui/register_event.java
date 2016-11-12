@@ -169,6 +169,7 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
         String title = eventTitle.getText().toString().trim();
         String place = eventPlace.getText().toString().trim();
         String description = eventDescription.getText().toString().trim();
+        String categorie = categorieSpinner.getSelectedItem().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -193,6 +194,12 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
             cancel = true;
         }
 
+        if (TextUtils.isEmpty(categorie)) {
+            Toast.makeText(this, "Debe elegir una categoría", Toast.LENGTH_SHORT).show();
+            focusView = categorieSpinner;
+            cancel = true;
+        }
+
         if (cancel) {
             focusView.requestFocus();
         } else {
@@ -211,7 +218,7 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
                 createdBy = "";
             }
 
-            Event eventDB = new Event(title, longDateTime, longCreatedAt, place, description, createdBy);
+            Event eventDB = new Event(title, longDateTime, longCreatedAt, place, description, createdBy, categorie);
 
             FBDatabase.child(keyEvent).setValue(eventDB);
 

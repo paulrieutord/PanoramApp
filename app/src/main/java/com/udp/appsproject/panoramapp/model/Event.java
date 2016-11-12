@@ -7,17 +7,19 @@ public class Event {
     private String place;
     private String comment;
     private String createdBy;
+    private String categorie;
 
     public Event (){
     }
 
-    public Event (String title, long dateTime, long createdAt, String place, String comment, String createdBy) {
+    public Event (String title, long dateTime, long createdAt, String place, String comment, String createdBy, String categorie) {
         this.title = title;
         this.dateTime = dateTime;
         this.createdAt = createdAt;
         this.place = place;
         this.comment = comment;
         this.createdBy = createdBy;
+        this.categorie = categorie;
     }
 
     public long getDateTime() {
@@ -66,5 +68,13 @@ public class Event {
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
     }
 }
