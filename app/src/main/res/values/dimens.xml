@@ -9,4 +9,5 @@
     <dimen name="titles_event_detail">14sp</dimen>
     <dimen name="values_event_detail">18sp</dimen>
     <dimen name="description_event_detail">12sp</dimen>
+    <dimen name="assistants_event_detail">30sp</dimen>
 </resources>

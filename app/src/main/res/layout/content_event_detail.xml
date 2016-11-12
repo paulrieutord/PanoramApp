@@ -15,10 +15,34 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/assistants"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:paddingStart="75dp"
+            android:paddingEnd="75dp"
+            android:textSize="@dimen/titles_event_detail"
+            android:textStyle="bold"
+            android:textColor="@color/text_details"
+            android:text="@string/assistants_event_detail" />
+
+        <TextView
+            android:id="@+id/assistants_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/assistants"
+            android:paddingTop="5dp"
+            android:paddingStart="75dp"
+            android:paddingEnd="75dp"
+            android:textSize="@dimen/assistants_event_detail"
+            android:text="XX" />
+
+        <TextView
             android:id="@+id/place"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
+            android:layout_below="@id/assistants_value"
             android:paddingStart="75dp"
             android:paddingEnd="75dp"
             android:textSize="@dimen/titles_event_detail"
