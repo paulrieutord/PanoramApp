@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,7 +21,6 @@ import com.udp.appsproject.panoramapp.ui.event_detail;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class DashboardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -84,18 +82,19 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder implements View
         titleEvent.setText(events.getTitle());
         action.setText("Creó el evento");
 
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date(System.currentTimeMillis()));
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
+        Calendar calendarAux = Calendar.getInstance();
+        calendarAux.setTime(new Date(System.currentTimeMillis()));
 
-        Date startToday = new Date(componentTimeToTimestamp(year, month, day, 0, 0));
+        Date now = new Date(calendarAux.getTimeInMillis());
 
-        Date now = new Date(System.currentTimeMillis());
+        calendarAux.set(Calendar.HOUR_OF_DAY, 0);
+        calendarAux.set(Calendar.MINUTE, 0);
+        calendarAux.set(Calendar.SECOND, 0);
 
-        cal.add(Calendar.DATE, -1);
-        Date startYesterday = new Date(componentTimeToTimestamp(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 0, 0));
+        Date startToday = new Date(calendarAux.getTimeInMillis());
+
+        calendarAux.add(Calendar.DATE, -1);
+        Date startYesterday = new Date(calendarAux.getTimeInMillis());
 
         Date createdAt = new Date(events.getCreatedAt());
 
@@ -123,12 +122,5 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder implements View
         i.putExtra(BUNDLE_EXTRAS, extras);
 
         mContext.startActivity(i);
-    }
-
-    long componentTimeToTimestamp(int year, int month, int day, int hour, int minute) {
-
-        Calendar c = new GregorianCalendar(year, month - 1, day, hour, minute, 0);
-
-        return c.getTimeInMillis();
     }
 }
