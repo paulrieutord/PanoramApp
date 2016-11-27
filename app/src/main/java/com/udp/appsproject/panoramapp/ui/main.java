@@ -135,8 +135,6 @@ public class main extends AppCompatActivity
             ft.commit();
         } else if (id == R.id.nav_calendar) {
             Toast.makeText(this, "No disponible.", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_messages) {
-            Toast.makeText(this, "No disponible.", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_friends) {
             Toast.makeText(this, "No disponible.", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_preferences) {

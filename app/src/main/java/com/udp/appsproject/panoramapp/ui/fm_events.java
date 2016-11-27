@@ -45,7 +45,7 @@ public class fm_events extends Fragment {
                 case 1:
                     return tabFm_events_popular.newInstance(position +1);
                 case 2:
-                    return tabFm_events_popular.newInstance(position +1);
+                    return tabFm_events_my_events.newInstance(position +1);
             }
             return null;
         }
@@ -63,7 +63,7 @@ public class fm_events extends Fragment {
                 case 1:
                     return "HOY";
                 case 2:
-                    return "PRÓXIMOS";
+                    return "MIS EVENTOS";
             }
             return null;
         }
