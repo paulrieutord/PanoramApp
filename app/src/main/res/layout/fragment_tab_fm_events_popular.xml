@@ -6,7 +6,7 @@
     tools:context="com.udp.appsproject.panoramapp.ui.tabFm_events_popular">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recView_events"
+        android:id="@+id/recView_events_popular"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>

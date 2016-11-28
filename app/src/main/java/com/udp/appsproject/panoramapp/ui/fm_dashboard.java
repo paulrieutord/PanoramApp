@@ -27,7 +27,7 @@ public class fm_dashboard extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_fm_dashboard, container, false);
 
-        recView_dashboard = (RecyclerView) rootView.findViewById(R.id.recView_events);
+        recView_dashboard = (RecyclerView) rootView.findViewById(R.id.recView_events_popular);
 
         FBDatabase = FirebaseDatabase.getInstance();
         FBReference = FBDatabase.getReference("events");

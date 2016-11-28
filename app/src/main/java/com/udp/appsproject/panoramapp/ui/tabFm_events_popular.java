@@ -42,7 +42,7 @@ public class tabFm_events_popular extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab_fm_events_popular, container, false);
 
-        recView_events = (RecyclerView) rootView.findViewById(R.id.recView_events);
+        recView_events = (RecyclerView) rootView.findViewById(R.id.recView_events_popular);
 
         FBDatabase = FirebaseDatabase.getInstance();
         FBReference = FBDatabase.getReference("events");

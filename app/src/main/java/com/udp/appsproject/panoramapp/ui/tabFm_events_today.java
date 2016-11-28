@@ -45,9 +45,9 @@ public class tabFm_events_today extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_tab_fm_events_popular, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tab_fm_events_today, container, false);
 
-        recView_events = (RecyclerView) rootView.findViewById(R.id.recView_events);
+        recView_events = (RecyclerView) rootView.findViewById(R.id.recView_events_today);
 
         Calendar calendarStart = Calendar.getInstance();
         calendarStart.setTime(new Date(System.currentTimeMillis()));
