@@ -19,10 +19,12 @@ public class EventsViewHolder extends RecyclerView.ViewHolder implements View.On
 
     private static final String BUNDLE_EXTRAS = "BUNDLE_EXTRAS";
     private static final String EXTRA_KEY = "EXTRA_KEY";
+    private static final String EXTRA_TITLE = "EXTRA_TITLE";
 
     View mView;
     Context mContext;
     String mKey;
+    String mTitleEvent;
 
     public EventsViewHolder(View itemView) {
         super(itemView);
@@ -33,6 +35,8 @@ public class EventsViewHolder extends RecyclerView.ViewHolder implements View.On
 
     public void bindEvent (Event events, String key) {
         mKey = key;
+        mTitleEvent = events.getTitle();
+
         ImageView icon = (ImageView) itemView.findViewById(R.id.icon_event_item);
         TextView titleEvent = (TextView) itemView.findViewById(R.id.title_event_item);
         TextView placeEvent = (TextView) itemView.findViewById(R.id.place_event_item);
@@ -95,6 +99,7 @@ public class EventsViewHolder extends RecyclerView.ViewHolder implements View.On
 
         Bundle extras = new Bundle();
         extras.putString(EXTRA_KEY, mKey);
+        extras.putString(EXTRA_TITLE, mTitleEvent);
         i.putExtra(BUNDLE_EXTRAS, extras);
 
         mContext.startActivity(i);

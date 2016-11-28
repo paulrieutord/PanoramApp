@@ -27,6 +27,7 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder implements View
 
     private static final String BUNDLE_EXTRAS = "BUNDLE_EXTRAS";
     private static final String EXTRA_KEY = "EXTRA_KEY";
+    private static final String EXTRA_TITLE = "EXTRA_TITLE";
 
     View mView;
     Context mContext;
@@ -39,6 +40,7 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder implements View
     TextView dateEvent;
     TextView place;
     String mKey;
+    String mTitleEvent;
 
     private DatabaseReference mDatabase;
 
@@ -53,6 +55,7 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder implements View
 
     public void bindEvents (Event events, String key) {
         mKey = key;
+        mTitleEvent = events.getTitle();
         avatar = (ImageView) itemView.findViewById(R.id.avatar_dashboard_item);
         photo = (ImageView) itemView.findViewById(R.id.photo_dashboard_item);
         name = (TextView) itemView.findViewById(R.id.name_dashboard_item);
@@ -119,6 +122,7 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder implements View
 
         Bundle extras = new Bundle();
         extras.putString(EXTRA_KEY, mKey);
+        extras.putString(EXTRA_TITLE, mTitleEvent);
         i.putExtra(BUNDLE_EXTRAS, extras);
 
         mContext.startActivity(i);

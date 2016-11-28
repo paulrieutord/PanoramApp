@@ -20,6 +20,7 @@ import com.udp.appsproject.panoramapp.model.Event;
 public class event_detail extends AppCompatActivity {
     private static final String BUNDLE_EXTRAS = "BUNDLE_EXTRAS";
     private static final String EXTRA_KEY = "EXTRA_KEY";
+    private static final String EXTRA_TITLE = "EXTRA_TITLE";
 
     FloatingActionButton fab;
     TextView assistants;
@@ -32,7 +33,8 @@ public class event_detail extends AppCompatActivity {
     Bundle extras;
 
     private FirebaseDatabase FBDatabase;
-    private DatabaseReference FBReference;
+    private DatabaseReference FBReferenceEvent;
+    private DatabaseReference FBReferenceUser;
     private FirebaseUser user;
 
     @Override
@@ -50,25 +52,28 @@ public class event_detail extends AppCompatActivity {
         extras = getIntent().getBundleExtra(BUNDLE_EXTRAS);
 
         FBDatabase = FirebaseDatabase.getInstance();
-        FBReference = FBDatabase.getReference("events");
+        FBReferenceEvent = FBDatabase.getReference("events");
+        FBReferenceUser = FBDatabase.getReference("users");
 
         fab = (FloatingActionButton) findViewById(R.id.fab_detail_event);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (childExists) {
-                    FBReference.child(extras.getString(EXTRA_KEY)).child("users").child(user.getUid()).getRef().removeValue();
+                    FBReferenceEvent.child(extras.getString(EXTRA_KEY)).child("users").child(user.getUid()).getRef().removeValue();
+                    FBReferenceUser.child(user.getUid()).child("events").child(extras.getString(EXTRA_KEY)).getRef().removeValue();
                     fab.setImageResource(R.drawable.ic_menu_add);
                     fab.setBackgroundTintList(getResources().getColorStateList(R.color.dark_gray));
                     childExists = false;
                 } else {
-                    FBReference.child(extras.getString(EXTRA_KEY)).child("users").child(user.getUid()).getRef().setValue(true);
+                    FBReferenceEvent.child(extras.getString(EXTRA_KEY)).child("users").child(user.getUid()).getRef().setValue(true);
+                    FBReferenceUser.child(user.getUid()).child("events").child(extras.getString(EXTRA_KEY)).getRef().setValue(extras.getString(EXTRA_TITLE));
                     fab.setImageResource(R.drawable.ic_check_black_24px);
                     fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
                     childExists = true;
                 }
 
-                FBReference.child(extras.getString(EXTRA_KEY)).child("users").addValueEventListener(
+                FBReferenceEvent.child(extras.getString(EXTRA_KEY)).child("users").addValueEventListener(
                         new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -82,7 +87,7 @@ public class event_detail extends AppCompatActivity {
             }
         });
 
-        FBReference.child(extras.getString(EXTRA_KEY)).addListenerForSingleValueEvent(
+        FBReferenceEvent.child(extras.getString(EXTRA_KEY)).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
