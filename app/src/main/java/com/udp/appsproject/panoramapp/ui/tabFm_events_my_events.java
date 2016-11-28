@@ -13,8 +13,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.udp.appsproject.panoramapp.R;
 import com.udp.appsproject.panoramapp.adapter.EventsViewHolder;
+import com.udp.appsproject.panoramapp.adapter.MyEventsViewHolder;
 import com.udp.appsproject.panoramapp.model.Event;
 
 import java.util.Calendar;
@@ -27,6 +29,7 @@ public class tabFm_events_my_events extends Fragment {
 
     private FirebaseDatabase FBDatabase;
     private DatabaseReference FBReference;
+    private Query queryRef;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -52,7 +55,7 @@ public class tabFm_events_my_events extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         FBDatabase = FirebaseDatabase.getInstance();
-        FBReference = FBDatabase.getReference("events");
+        FBReference = FBDatabase.getReference("users").child(user.getUid()).child("events");
 
         return rootView;
     }
@@ -61,15 +64,15 @@ public class tabFm_events_my_events extends Fragment {
     public void onStart() {
         super.onStart();
 
-        adapter_events = new FirebaseRecyclerAdapter<Event, EventsViewHolder>(
-                Event.class,
+        adapter_events = new FirebaseRecyclerAdapter<String, MyEventsViewHolder>(
+                String.class,
                 R.layout.event_item,
-                EventsViewHolder.class,
+                MyEventsViewHolder.class,
                 FBReference
         ) {
             @Override
-            protected void populateViewHolder(EventsViewHolder viewHolder, Event model, int position) {
-                viewHolder.bindEvent(model, adapter_events.getRef(position).getKey());
+            protected void populateViewHolder(MyEventsViewHolder viewHolder, String model, int position) {
+                viewHolder.bindEvent(adapter_events.getRef(position).getKey());
             }
         };
 
