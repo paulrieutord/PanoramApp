@@ -9,33 +9,36 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.udp.appsproject.panoramapp.R;
 import com.udp.appsproject.panoramapp.adapter.EventsViewHolder;
 import com.udp.appsproject.panoramapp.model.Event;
 
-public class tabFm_events_my_events extends Fragment {
+import java.util.Calendar;
+import java.util.Date;
+
+public class tabFm_events_today extends Fragment {
 
     private RecyclerView recView_events;
     private FirebaseRecyclerAdapter adapter_events;
 
     private FirebaseDatabase FBDatabase;
     private DatabaseReference FBReference;
+    private Query queryRef;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public static tabFm_events_my_events newInstance(int sectionNumber) {
-        tabFm_events_my_events fragment = new tabFm_events_my_events();
+    public static tabFm_events_today newInstance(int sectionNumber) {
+        tabFm_events_today fragment = new tabFm_events_today();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public tabFm_events_my_events() {
+    public tabFm_events_today() {
         // Required empty public constructor
     }
 
@@ -46,8 +49,21 @@ public class tabFm_events_my_events extends Fragment {
 
         recView_events = (RecyclerView) rootView.findViewById(R.id.recView_events);
 
+        Calendar calendarStart = Calendar.getInstance();
+        calendarStart.setTime(new Date(System.currentTimeMillis()));
+        calendarStart.set(Calendar.HOUR_OF_DAY, 0);
+        calendarStart.set(Calendar.MINUTE, 0);
+        calendarStart.set(Calendar.SECOND, 0);
+
+        Calendar calendarEnd = Calendar.getInstance();
+        calendarEnd.setTime(new Date(System.currentTimeMillis()));
+        calendarEnd.set(Calendar.HOUR_OF_DAY, 23);
+        calendarEnd.set(Calendar.MINUTE, 59);
+        calendarEnd.set(Calendar.SECOND, 59);
+
         FBDatabase = FirebaseDatabase.getInstance();
         FBReference = FBDatabase.getReference("events");
+        queryRef = FBReference.orderByChild("dateTime").startAt(calendarStart.getTimeInMillis()).endAt(calendarEnd.getTimeInMillis());
 
         return rootView;
     }
@@ -60,7 +76,7 @@ public class tabFm_events_my_events extends Fragment {
                 Event.class,
                 R.layout.event_item,
                 EventsViewHolder.class,
-                FBReference
+                queryRef
         ) {
             @Override
             protected void populateViewHolder(EventsViewHolder viewHolder, Event model, int position) {
