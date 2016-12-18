@@ -49,6 +49,7 @@
     <!-- REGISTER USER -->
     <string name="prompt_username">Nombre de usuario</string>
     <string name="prompt_name">Nombre</string>
+    <string name="prompt_password_register">Contraseña</string>
     <string name="prompt_last_name">Apellido</string>
     <string name="prompt_repeat_password">Confirme contraseña</string>
     <string name="action_sign_up">Registrar</string>

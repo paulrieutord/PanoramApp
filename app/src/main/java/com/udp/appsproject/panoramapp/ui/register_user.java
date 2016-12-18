@@ -227,7 +227,7 @@ public class register_user extends AppCompatActivity implements View.OnClickList
     }
 
     private boolean isPasswordValid(String password) {
-        return password.length() > 4;
+        return password.length() > 5;
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)

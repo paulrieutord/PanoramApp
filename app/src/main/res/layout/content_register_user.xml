@@ -92,7 +92,7 @@
                 android:textColorHighlight="@color/white"
                 android:backgroundTint="@color/white"
                 android:textColor="@color/white"
-                android:hint="@string/prompt_password"
+                android:hint="@string/prompt_password_register"
                 android:inputType="textPassword"
                 android:maxLines="1" />
 
