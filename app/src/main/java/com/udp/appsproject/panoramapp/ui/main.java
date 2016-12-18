@@ -133,11 +133,7 @@ public class main extends AppCompatActivity
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_main, fragment);
             ft.commit();
-        } else if (id == R.id.nav_calendar) {
-            Toast.makeText(this, "No disponible.", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_friends) {
-            Toast.makeText(this, "No disponible.", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_preferences) {
+        }else if (id == R.id.nav_preferences) {
             Toast.makeText(this, "No disponible.", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_about) {
             new AlertDialog.Builder(this)

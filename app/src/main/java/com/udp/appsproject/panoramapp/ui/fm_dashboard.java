@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.udp.appsproject.panoramapp.R;
 import com.udp.appsproject.panoramapp.adapter.DashboardViewHolder;
 import com.udp.appsproject.panoramapp.model.Event;
@@ -22,6 +23,7 @@ public class fm_dashboard extends Fragment {
 
     private FirebaseDatabase FBDatabase;
     private DatabaseReference FBReference;
+    private Query queryRef;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class fm_dashboard extends Fragment {
 
         FBDatabase = FirebaseDatabase.getInstance();
         FBReference = FBDatabase.getReference("events");
+        queryRef = FBReference.orderByChild("dateTime");
 
         return rootView;
     }
@@ -51,8 +54,11 @@ public class fm_dashboard extends Fragment {
             }
         };
 
+        LinearLayoutManager layoutM = new LinearLayoutManager(getActivity());
+        layoutM.setReverseLayout(true);
+        layoutM.setStackFromEnd(true);
         recView_dashboard.setHasFixedSize(true);
-        recView_dashboard.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recView_dashboard.setLayoutManager(layoutM);
         recView_dashboard.setAdapter(adapter_dashboard);
     }
 

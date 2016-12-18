@@ -10,18 +10,6 @@
             android:id="@+id/nav_events"
             android:icon="@drawable/ic_menu_events"
             android:title="@string/events" />
-        <item
-            android:id="@+id/nav_calendar"
-            android:icon="@drawable/ic_menu_calendar"
-            android:title="@string/calendar" />
-        <item
-            android:id="@+id/nav_messages"
-            android:icon="@drawable/ic_menu_send"
-            android:title="@string/messages" />
-        <item
-            android:id="@+id/nav_friends"
-            android:icon="@drawable/ic_menu_friends"
-            android:title="@string/friends" />
     </group>
 
     <item android:title="Misc">
