@@ -7,11 +7,11 @@
     <string name="title_register_event">Nuevo evento</string>
     <string name="title_activity_login">Ingresar</string>
     <string name="title_register_user">Registro de usuario</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_forgot_password">Recuperar contraseña</string>
 
     <!-- ITEMS NAVDRAWER -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="dashboard">Dashboard</string>
     <string name="events">Eventos</string>
     <string name="calendar">Mi calendario</string>
@@ -63,8 +63,10 @@
     <string name="prompt_place">Lugar</string>
     <string name="register_event">Crear evento</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- FORGOT PASSWORD -->
+    <string name="forgot_password_msg">Sólo necesitamos tu correo registrado para enviarte las instrucciones de reinicio de contraseña.</string>
+    <string name="btn_reset_password">Reiniciar contraseña</string>
+    <string name="btn_back">Volver</string>
 
     <!-- ETC -->
 </resources>

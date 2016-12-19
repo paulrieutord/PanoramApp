@@ -53,7 +53,9 @@ public class login extends AppCompatActivity implements LoaderCallbacks<Cursor>,
     private View mLoginFormView;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private Button mEmailSignInButton;
     private TextView registerUser;
+    private TextView forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +68,14 @@ public class login extends AppCompatActivity implements LoaderCallbacks<Cursor>,
 
         mPasswordView = (EditText) findViewById(R.id.login_password);
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(this);
 
         registerUser = (TextView) findViewById(R.id.register_user);
         registerUser.setOnClickListener(this);
+
+        forgotPassword = (TextView) findViewById(R.id.forgot_password);
+        forgotPassword.setOnClickListener(this);
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -105,6 +110,10 @@ public class login extends AppCompatActivity implements LoaderCallbacks<Cursor>,
             case R.id.register_user:
                 //1 = register
                 startActivity(new Intent(getApplicationContext(), register_user.class));
+                break;
+
+            case R.id.forgot_password:
+                startActivity(new Intent(getApplicationContext(), forgot_password.class));
                 break;
 
             default:
