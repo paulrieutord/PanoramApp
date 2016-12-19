@@ -62,10 +62,34 @@
             android:text="null" />
 
         <TextView
+            android:id="@+id/datetime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_below="@id/place_value"
+            android:paddingStart="75dp"
+            android:paddingEnd="75dp"
+            android:textSize="@dimen/titles_event_detail"
+            android:textStyle="bold"
+            android:textColor="@color/text_details"
+            android:text="@string/datetime_event_detail" />
+
+        <TextView
+            android:id="@+id/datetime_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/datetime"
+            android:paddingTop="5dp"
+            android:paddingStart="75dp"
+            android:paddingEnd="75dp"
+            android:textSize="@dimen/values_event_detail"
+            android:text="null" />
+
+        <TextView
             android:id="@+id/ticket"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/place_value"
+            android:layout_below="@+id/datetime_value"
             android:paddingTop="25dp"
             android:paddingStart="75dp"
             android:paddingEnd="75dp"

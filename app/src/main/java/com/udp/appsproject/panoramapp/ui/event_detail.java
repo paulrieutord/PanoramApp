@@ -17,6 +17,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.udp.appsproject.panoramapp.R;
 import com.udp.appsproject.panoramapp.model.Event;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class event_detail extends AppCompatActivity {
     private static final String BUNDLE_EXTRAS = "BUNDLE_EXTRAS";
     private static final String EXTRA_KEY = "EXTRA_KEY";
@@ -25,6 +28,7 @@ public class event_detail extends AppCompatActivity {
     FloatingActionButton fab;
     TextView assistants;
     TextView place;
+    TextView datetime;
     TextView website;
     TextView description;
     public long countUsers;
@@ -47,6 +51,7 @@ public class event_detail extends AppCompatActivity {
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_detail_event);
         assistants = (TextView) findViewById(R.id.assistants_value);
         place = (TextView) findViewById(R.id.place_value);
+        datetime = (TextView) findViewById(R.id.datetime_value);
         website = (TextView) findViewById(R.id.website_value);
         description = (TextView) findViewById(R.id.description_value);
 
@@ -101,6 +106,8 @@ public class event_detail extends AppCompatActivity {
                         collapsingToolbarLayout.setTitle(eventObject.getTitle());
 
                         place.setText(eventObject.getPlace());
+                        datetime.setText(new SimpleDateFormat("dd/MM/yyy", Locale.US).format(eventObject.getCreatedAt())+" a las "
+                                +new SimpleDateFormat("HH:mm", Locale.US).format(eventObject.getCreatedAt()));
                         website.setText(eventObject.getWebsite());
                         description.setText(eventObject.getComment());
 
