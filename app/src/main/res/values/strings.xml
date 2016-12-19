@@ -56,12 +56,13 @@
     <string name="error_match_password">Contraseñas no coinciden</string>
 
     <!-- REGISTER EVENT -->
-    <string name="prompt_title">Título</string>
-    <string name="prompt_date">Fecha</string>
-    <string name="prompt_time">Hora</string>
-    <string name="prompt_description">Descripción</string>
-    <string name="prompt_place">Lugar</string>
+    <string name="prompt_title">Título*</string>
+    <string name="prompt_date">Fecha*</string>
+    <string name="prompt_time">Hora*</string>
+    <string name="prompt_description">Descripción*</string>
+    <string name="prompt_place">Lugar*</string>
     <string name="register_event">Crear evento</string>
+    <string name="prompt_website">Sitio web</string>
 
     <!-- FORGOT PASSWORD -->
     <string name="forgot_password_msg">Sólo necesitamos tu correo registrado para enviarte las instrucciones de reinicio de contraseña.</string>

@@ -8,11 +8,12 @@ public class Event {
     private String comment;
     private String createdBy;
     private String categorie;
+    private String website;
 
     public Event (){
     }
 
-    public Event (String title, long dateTime, long createdAt, String place, String comment, String createdBy, String categorie) {
+    public Event (String title, long dateTime, long createdAt, String place, String comment, String createdBy, String categorie, String website) {
         this.title = title;
         this.dateTime = dateTime;
         this.createdAt = createdAt;
@@ -20,6 +21,7 @@ public class Event {
         this.comment = comment;
         this.createdBy = createdBy;
         this.categorie = categorie;
+        this.website = website;
     }
 
     public long getDateTime() {
@@ -76,5 +78,13 @@ public class Event {
 
     public void setCategorie(String categorie) {
         this.categorie = categorie;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }

@@ -25,6 +25,7 @@ public class event_detail extends AppCompatActivity {
     FloatingActionButton fab;
     TextView assistants;
     TextView place;
+    TextView website;
     TextView description;
     Boolean childExists;
 
@@ -45,6 +46,7 @@ public class event_detail extends AppCompatActivity {
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_detail_event);
         assistants = (TextView) findViewById(R.id.assistants_value);
         place = (TextView) findViewById(R.id.place_value);
+        website = (TextView) findViewById(R.id.website_value);
         description = (TextView) findViewById(R.id.description_value);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -96,6 +98,7 @@ public class event_detail extends AppCompatActivity {
                         collapsingToolbarLayout.setTitle(eventObject.getTitle());
 
                         place.setText(eventObject.getPlace());
+                        website.setText(eventObject.getWebsite());
                         description.setText(eventObject.getComment());
 
                         if (dataSnapshot.child("users").hasChild(user.getUid())) {

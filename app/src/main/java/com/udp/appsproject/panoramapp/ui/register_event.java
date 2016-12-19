@@ -43,6 +43,7 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
     TextView eventTime;
     EditText eventPlace;
     EditText eventDescription;
+    EditText eventWebsite;
     Spinner categorieSpinner;
     List<String> categoriesList;
     Button eventOk;
@@ -68,6 +69,7 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
         eventTime.setOnClickListener(this);
         eventPlace = (EditText) findViewById(R.id.register_event_place);
         eventDescription = (EditText) findViewById(R.id.register_event_description);
+        eventWebsite = (EditText) findViewById(R.id.register_event_website);
         eventOk = (Button) findViewById(R.id.register_event_ok);
         eventOk.setOnClickListener(this);
 
@@ -170,6 +172,7 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
         String place = eventPlace.getText().toString().trim();
         String description = eventDescription.getText().toString().trim();
         String categorie = categorieSpinner.getSelectedItem().toString();
+        String website = eventWebsite.getText().toString().trim();
 
         boolean cancel = false;
         View focusView = null;
@@ -200,6 +203,10 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
             cancel = true;
         }
 
+        if (TextUtils.isEmpty(website)) {
+            website = "No disponible";
+        }
+
         if (cancel) {
             focusView.requestFocus();
         } else {
@@ -218,7 +225,7 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
                 createdBy = "";
             }
 
-            Event eventDB = new Event(title, longDateTime, longCreatedAt, place, description, createdBy, categorie);
+            Event eventDB = new Event(title, longDateTime, longCreatedAt, place, description, createdBy, categorie, website);
 
             FBDatabase.child(keyEvent).setValue(eventDB);
 
