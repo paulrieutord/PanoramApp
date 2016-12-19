@@ -242,7 +242,7 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
 
     private void addUserChangeListener(String keyEvent) {
         // User data change listener
-        FBDatabase.child(keyEvent).addValueEventListener(new ValueEventListener() {
+        FBDatabase.child(keyEvent).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Event event = dataSnapshot.getValue(Event.class);
@@ -254,6 +254,7 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
 
                 Toast.makeText(register_event.this, "Evento creado", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), main.class));
+                finish();
             }
 
             @Override
