@@ -278,22 +278,24 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
         FBDatabase.child(keyEvent).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Event event = dataSnapshot.getValue(Event.class);
+                final Event event = dataSnapshot.getValue(Event.class);
                 StorageReference filePath = imageReference.child("Photos").child(keyEvent);
                 filePath.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         progressDialogImage.dismiss();
+
+                        // Check for null
+                        if (event == null) {
+                            return;
+                        }
+
+                        Toast.makeText(register_event.this, "Evento creado", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), main.class));
                     }
                 });
 
-                // Check for null
-                if (event == null) {
-                    return;
-                }
 
-                Toast.makeText(register_event.this, "Evento creado", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), main.class));
             }
 
             @Override

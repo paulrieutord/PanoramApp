@@ -1,12 +1,18 @@
 package com.udp.appsproject.panoramapp.ui;
 
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -14,6 +20,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 import com.udp.appsproject.panoramapp.R;
 import com.udp.appsproject.panoramapp.model.Event;
 
@@ -31,6 +40,7 @@ public class event_detail extends AppCompatActivity {
     TextView datetime;
     TextView website;
     TextView description;
+    ImageView photo;
     public long countUsers;
     Boolean childExists;
 
@@ -41,6 +51,7 @@ public class event_detail extends AppCompatActivity {
     private FirebaseDatabase FBDatabase;
     private DatabaseReference FBReferenceEvent;
     private DatabaseReference FBReferenceUser;
+    private StorageReference imageReference;
     private FirebaseUser user;
 
     @Override
@@ -54,10 +65,30 @@ public class event_detail extends AppCompatActivity {
         datetime = (TextView) findViewById(R.id.datetime_value);
         website = (TextView) findViewById(R.id.website_value);
         description = (TextView) findViewById(R.id.description_value);
+        photo = (ImageView) findViewById(R.id.photo_detail);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        imageReference = FirebaseStorage.getInstance().getReference();
 
         extras = getIntent().getBundleExtra(BUNDLE_EXTRAS);
+
+        imageReference.child("Photos/"+extras.getString(EXTRA_KEY)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso
+                        .with(getApplicationContext())
+                        .load(uri)
+                        .centerCrop()
+                        .fit()
+                        .into(photo);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         FBDatabase = FirebaseDatabase.getInstance();
         FBReferenceEvent = FBDatabase.getReference("events");

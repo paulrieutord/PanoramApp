@@ -2,17 +2,24 @@ package com.udp.appsproject.panoramapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 import com.udp.appsproject.panoramapp.R;
 import com.udp.appsproject.panoramapp.model.Event;
 import com.udp.appsproject.panoramapp.model.User;
@@ -28,6 +35,7 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder implements View
     private static final String BUNDLE_EXTRAS = "BUNDLE_EXTRAS";
     private static final String EXTRA_KEY = "EXTRA_KEY";
     private static final String EXTRA_TITLE = "EXTRA_TITLE";
+    private static final String EXTRA_URI = "EXTRA_URI";
 
     View mView;
     Context mContext;
@@ -43,6 +51,7 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder implements View
     String mTitleEvent;
 
     private DatabaseReference mDatabase;
+    private StorageReference imageReference;
 
     public DashboardViewHolder(View itemView) {
         super(itemView);
@@ -51,6 +60,7 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder implements View
         mContext = itemView.getContext();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        imageReference = FirebaseStorage.getInstance().getReference();
     }
 
     public void bindEvents (Event events, String key) {
@@ -79,8 +89,24 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder implements View
                     }
                 });
 
+        imageReference.child("Photos/"+mKey).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso
+                        .with(mContext)
+                        .load(uri)
+                        .centerCrop()
+                        .fit()
+                        .into(photo);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
+
         avatar.setImageResource(android.R.drawable.sym_def_app_icon);
-        photo.setImageResource(R.drawable.ic_menu_events);
         photo.setOnClickListener(this);
         titleEvent.setText(events.getTitle());
         action.setText("Creó el evento");
