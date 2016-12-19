@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.udp.appsproject.panoramapp.R;
 import com.udp.appsproject.panoramapp.adapter.EventsViewHolder;
 import com.udp.appsproject.panoramapp.model.Event;
@@ -22,6 +23,7 @@ public class tabFm_events_popular extends Fragment {
 
     private FirebaseDatabase FBDatabase;
     private DatabaseReference FBReference;
+    private Query queryRef;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -46,6 +48,7 @@ public class tabFm_events_popular extends Fragment {
 
         FBDatabase = FirebaseDatabase.getInstance();
         FBReference = FBDatabase.getReference("events");
+        queryRef = FBReference.orderByChild("countUsers");
 
         return rootView;
     }
@@ -58,7 +61,7 @@ public class tabFm_events_popular extends Fragment {
                 Event.class,
                 R.layout.event_item,
                 EventsViewHolder.class,
-                FBReference
+                queryRef
         ) {
             @Override
             protected void populateViewHolder(EventsViewHolder viewHolder, Event model, int position) {
@@ -66,8 +69,11 @@ public class tabFm_events_popular extends Fragment {
             }
         };
 
+        LinearLayoutManager layoutM = new LinearLayoutManager(getActivity());
+        layoutM.setReverseLayout(true);
+        layoutM.setStackFromEnd(true);
         recView_events.setHasFixedSize(true);
-        recView_events.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recView_events.setLayoutManager(layoutM);
         recView_events.setAdapter(adapter_events);
     }
 

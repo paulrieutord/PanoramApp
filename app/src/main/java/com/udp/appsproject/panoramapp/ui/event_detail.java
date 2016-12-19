@@ -27,6 +27,7 @@ public class event_detail extends AppCompatActivity {
     TextView place;
     TextView website;
     TextView description;
+    public long countUsers;
     Boolean childExists;
 
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
@@ -79,7 +80,9 @@ public class event_detail extends AppCompatActivity {
                         new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                countUsers = dataSnapshot.getChildrenCount();
                                 assistants.setText(String.valueOf(dataSnapshot.getChildrenCount()));
+                                FBReferenceEvent.child(extras.getString(EXTRA_KEY)).child("countUsers").setValue(countUsers);
                             }
 
                             @Override
