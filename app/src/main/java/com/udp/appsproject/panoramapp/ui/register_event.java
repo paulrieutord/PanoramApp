@@ -1,8 +1,10 @@
 package com.udp.appsproject.panoramapp.ui;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +29,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.udp.appsproject.panoramapp.R;
 import com.udp.appsproject.panoramapp.model.Event;
 
@@ -44,15 +50,20 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
     EditText eventPlace;
     EditText eventDescription;
     EditText eventWebsite;
+    Button uploadImage;
     Spinner categorieSpinner;
     List<String> categoriesList;
     Button eventOk;
+    Uri uriImage;
+    private ProgressDialog progressDialogImage;
 
     int day_x, month_x, year_x, hour_x, minute_x;
     int finalDay, finalMonth, finalYear, finalHour, finalMinute;
+    private static final int GALLERY_INTENT = 2;
 
     private DatabaseReference FBDatabase;
     private FirebaseDatabase FBInstance;
+    private StorageReference imageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +81,15 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
         eventPlace = (EditText) findViewById(R.id.register_event_place);
         eventDescription = (EditText) findViewById(R.id.register_event_description);
         eventWebsite = (EditText) findViewById(R.id.register_event_website);
+        uploadImage = (Button) findViewById(R.id.btn_upload_image);
+        uploadImage.setOnClickListener(this);
         eventOk = (Button) findViewById(R.id.register_event_ok);
         eventOk.setOnClickListener(this);
 
         categorieSpinner = (Spinner) findViewById(R.id.spinner_categories);
+
+        imageReference = FirebaseStorage.getInstance().getReference();
+        progressDialogImage = new ProgressDialog(this);
 
         FBInstance = FirebaseDatabase.getInstance();
 
@@ -127,11 +143,25 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
                 TPDialog.setTitle("");
                 TPDialog.show();
                 break;
+            case R.id.btn_upload_image:
+                Intent i = new Intent(Intent.ACTION_PICK);
+                i.setType("image/*");
+                startActivityForResult(i, GALLERY_INTENT);
+                break;
             case R.id.register_event_ok:
                 createEvent();
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
+            uriImage = data.getData();
         }
     }
 
@@ -210,6 +240,9 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
         if (cancel) {
             focusView.requestFocus();
         } else {
+            progressDialogImage.setMessage("Creando...");
+            progressDialogImage.setCancelable(false);
+            progressDialogImage.show();
             FBDatabase = FBInstance.getReference("events");
             String keyEvent = FBDatabase.push().getKey();
 
@@ -240,12 +273,19 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
         return c.getTimeInMillis();
     }
 
-    private void addUserChangeListener(String keyEvent) {
+    private void addUserChangeListener(final String keyEvent) {
         // User data change listener
         FBDatabase.child(keyEvent).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Event event = dataSnapshot.getValue(Event.class);
+                StorageReference filePath = imageReference.child("Photos").child(keyEvent);
+                filePath.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        progressDialogImage.dismiss();
+                    }
+                });
 
                 // Check for null
                 if (event == null) {
@@ -254,7 +294,6 @@ public class register_event extends AppCompatActivity implements View.OnClickLis
 
                 Toast.makeText(register_event.this, "Evento creado", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), main.class));
-                finish();
             }
 
             @Override

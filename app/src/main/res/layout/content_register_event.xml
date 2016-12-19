@@ -87,12 +87,20 @@
             android:scrollbars="vertical"
             android:hint="@string/prompt_description" />
 
+        <Button
+            android:id="@+id/btn_upload_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/register_event_description"
+            android:text="SELECCIONAR IMAGEN"
+            android:textColor="@color/colorPrimary"/>
+
         <TextView
             android:id="@+id/category_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:layout_below="@id/register_event_description"
+            android:layout_below="@id/btn_upload_image"
             android:text="Tipo de evento"/>
 
         <Spinner
